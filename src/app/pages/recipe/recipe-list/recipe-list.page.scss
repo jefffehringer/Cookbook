@@ -1,0 +1,10 @@
+.speaker-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.speaker-card ion-card-content {
+  flex: 1 1 auto;
+
+  padding: 0;
+}
