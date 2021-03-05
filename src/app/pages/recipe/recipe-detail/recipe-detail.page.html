@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>recipeDetail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-template #spinner>
+    <ion-spinner></ion-spinner>
+  </ng-template>
+  <ion-grid fixed *ngIf="recipe$ | async as recipe;else spinner">
+    <ion-row>
+      <ion-col size="12">
+        <h3>{{recipe.name}}</h3>
+        <p>{{recipe.author}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col size="12" size-md="6">
+        <h4>Ingredients</h4>
+        <ul class="ol-ul-list">
+          <li *ngFor="let ing of recipe.ingredients">{{ing}}</li>
+        </ul>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <h4>Instructions</h4>
+        <ol class="ol-ul-list">
+          <li *ngFor="let step of recipe.steps">{{step.instructions}}</li>
+        </ol>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button size="small" color="light" *ngFor="let tag of recipe.tags">{{tag}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

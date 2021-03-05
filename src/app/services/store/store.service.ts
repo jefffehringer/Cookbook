@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, delay, finalize } from 'rxjs/operators';
 import { StoreSettings } from './models/store-settings.model';
 import { HttpService } from './http.service';
 
@@ -25,7 +25,7 @@ export class StoreService<T> {
     return this.selectedSubject.getValue();
   }
   protected set selected(val: T) {
-    this.selectedSubject.next({...val});
+    this.selectedSubject.next(val == null ? null : {...val});
   }
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -97,6 +97,11 @@ export class StoreService<T> {
   }
 
   get(id: string) {
+    if (id === null) {
+      this.selected = null;
+      return;
+    }
+
     this.loading = true;
 
     this.http.get(`${this.settings.url}${id}`)
@@ -108,8 +113,8 @@ export class StoreService<T> {
         finalize(() => this.loading = false)
       )
       .subscribe(d => {
-        this.selected = d;
         this.replaceOrAdd(d);
+        this.selected = d;
       });
   }
 

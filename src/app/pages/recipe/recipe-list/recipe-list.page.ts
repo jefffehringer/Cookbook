@@ -8,6 +8,7 @@ import { RecipeService } from '../services/recipe.services';
 })
 export class RecipeListPage implements OnInit {
   recipes$ = this.recipeService.items$;
+  showHeader = true;
 
   constructor(
     private recipeService: RecipeService

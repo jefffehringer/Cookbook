@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="showHeader">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -13,7 +13,7 @@
       <ion-col size="12" size-md="6" *ngFor="let recipe of recipes$ | async">
         <ion-card>
           <ion-card-header>
-            <ion-item detail="false" lines="none">
+            <ion-item detail="false" lines="none" routerLink="/recipes/{{recipe.id}}">
               <ion-label>
                 <h2>{{recipe.name}}</h2>
                 <p>{{recipe.author}}</p>
