@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "localhost": "ionic serve -c=localhost"
+    "localhost": "ionic serve -c=localhost",
+    "mock": "json-server mock/data.json"
   },
   "private": true,
   "dependencies": {
