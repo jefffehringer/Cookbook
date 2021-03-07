@@ -8,12 +8,16 @@
   "recipes": [
     {
       "id": "5c7f346c8934843230445742",
-      "name": "Baked Pork Chop Test",
+      "name": "Baked Pork Chop111",
       "author": "Marianna",
       "notes": "",
       "cooktime": "50 Minutes",
       "foodType": "Dinner",
-      "tags": ["Pork", "Test", "Test 2"],
+      "tags": [
+        "Pork",
+        "Test",
+        "Test 2"
+      ],
       "ingredients": [
         "6 to 8 medium pork chops",
         "1 can cream of chicken soup",
@@ -47,7 +51,11 @@
       "cooktime": "3",
       "foodType": "",
       "tags": [],
-      "ingredients": ["Ing 1", "Ing 2", "Ing 3"],
+      "ingredients": [
+        "Ing 1",
+        "Ing 2",
+        "Ing 3"
+      ],
       "steps": [
         {
           "instructions": "Pour salt",
@@ -67,7 +75,10 @@
       "cooktime": "0 minutes",
       "foodType": "",
       "tags": [],
-      "ingredients": ["Eggs", "Fridge"],
+      "ingredients": [
+        "Eggs",
+        "Fridge"
+      ],
       "steps": [
         {
           "instructions": "Leave eggs in fridge",

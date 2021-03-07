@@ -11,24 +11,42 @@
   <ion-grid fixed *ngIf="recipe$ | async as recipe;else spinner">
     <ion-row>
       <ion-col size="12">
-        <h3>{{recipe.name}}</h3>
-        <div>Author: {{recipe.author}}</div>
-        <div>Cook time: {{recipe.cooktime}}</div>
-        <div>Meal type: {{recipe.foodType}}</div>
+        <div>
+          <ion-label position="stacked">Recipe Name</ion-label>
+          <ion-input placeholder="Recipe Name" [(ngModel)]="recipe.name"></ion-input>
+        </div>
+        <div>
+          <ion-label position="stacked">Cook Time</ion-label>
+          <ion-input placeholder="20 minutes" [(ngModel)]="recipe.cooktime"></ion-input>
+        </div>
+        <div>
+          <ion-label position="stacked">Meal Type</ion-label>
+          <ion-input placeholder="Breakfast" [(ngModel)]="recipe.foodType"></ion-input>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom">
       <ion-col size="12" size-md="6">
         <h4>Ingredients</h4>
-        <ul class="ol-ul-list">
-          <li *ngFor="let ing of recipe.ingredients">{{ing}}</li>
-        </ul>
+        <ion-list>
+          <ion-reorder-group id="ingredients" disabled="false" (ionItemReorder)="doReorder($event)">
+            <ion-item *ngFor="let item of recipe.ingredients;let i=index;trackBy:trackByIndex">
+              <ion-input placeholder="Ingredient" name="ing{{i}}" [(ngModel)]="recipe.ingredients[i]"></ion-input>
+              <ion-reorder slot="end"></ion-reorder>
+            </ion-item>
+          </ion-reorder-group>
+        </ion-list>
       </ion-col>
       <ion-col size="12" size-md="6">
         <h4>Instructions</h4>
-        <ol class="ol-ul-list">
-          <li *ngFor="let step of recipe.steps">{{step.instructions}}</li>
-        </ol>
+        <ion-list>
+          <ion-reorder-group id="instructions" disabled="false" (ionItemReorder)="reorderInstructions($event)">
+            <ion-item *ngFor="let step of recipe.steps;let i=index;trackBy:trackByIndex">
+              <ion-input placeholder="Ingredient" name="step{{i}}" [(ngModel)]="recipe.steps[i].instructions"></ion-input>
+              <ion-reorder slot="end"></ion-reorder>
+            </ion-item>
+          </ion-reorder-group>
+        </ion-list>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -36,10 +54,16 @@
         <ion-button size="small" color="light" *ngFor="let tag of recipe.tags">{{tag}}</ion-button>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="recipe.notes?.length > 0">
+    <ion-row>
       <ion-col>
         <h3>Notes</h3>
         <p>{{recipe.notes}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button size="small" (click)="save(recipe)">Save</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
