@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecipeEditPageRoutingModule } from './recipe-edit-routing.module';
 
 import { RecipeEditPage } from './recipe-edit.page';
+import { RecipeEditFormComponent } from '../recipe-edit-form/recipe-edit-form.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { RecipeEditPage } from './recipe-edit.page';
     IonicModule,
     RecipeEditPageRoutingModule
   ],
-  declarations: [RecipeEditPage]
+  declarations: [RecipeEditPage, RecipeEditFormComponent]
 })
 export class RecipeEditPageModule {}

@@ -27,16 +27,16 @@
       ],
       "steps": [
         {
-          "instructions": "Fry pork chops to brown",
-          "order": 0
-        },
-        {
           "instructions": "Lay chops in casserole or 9x13 pan.",
           "order": 1
         },
         {
           "instructions": "Cover chops with chicken soup mixed with water and top with dry onion soup mix",
           "order": 2
+        },
+        {
+          "instructions": "Fry pork chops to brown",
+          "order": 0
         },
         {
           "instructions": "Bake at 350 for 40-50 minutes",

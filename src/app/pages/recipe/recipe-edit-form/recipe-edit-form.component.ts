@@ -1,31 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RecipeService } from '../services/recipe.services';
-import { ItemReorderEventDetail } from '@ionic/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Recipe } from '@cook/store/models/recipe.interface';
+import { ItemReorderEventDetail } from '@ionic/core';
 
 @Component({
-  selector: 'app-recipe-edit',
-  templateUrl: './recipe-edit.page.html',
-  styleUrls: ['./recipe-edit.page.scss'],
+  selector: 'app-recipe-edit-form',
+  templateUrl: './recipe-edit-form.component.html',
+  styleUrls: ['./recipe-edit-form.component.scss'],
 })
-export class RecipeEditPage implements OnInit {
-  recipe$ = this.recipeService.selected$;
-  loading$ = this.recipeService.loading$;
+export class RecipeEditFormComponent implements OnInit {
+  @Input() recipe: Recipe;
+  @Output() saved = new EventEmitter<Recipe>();
 
-  constructor(
-    private recipeService: RecipeService,
-    private route: ActivatedRoute
-  ) { }
+  constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  doReorder(ev: CustomEvent<ItemReorderEventDetail>, recipe: Recipe) {
+  doReorder(ev: CustomEvent<ItemReorderEventDetail>) {
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
     console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
-    this.swap(recipe.ingredients, ev.detail.from, ev.detail.to);
+    this.swap(this.recipe.ingredients, ev.detail.from, ev.detail.to);
 
     // Finish the reorder and position the item in the DOM based on
     // where the gesture ended. This method can also be called directly
@@ -34,10 +28,12 @@ export class RecipeEditPage implements OnInit {
   }
 
   reorderInstructions(ev: CustomEvent<ItemReorderEventDetail>) {
+
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
     console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
-
+    const itemMove = this.recipe.steps.splice(ev.detail.from, 1)[0];
+    this.recipe.steps.splice(ev.detail.to, 0, itemMove);
     // Finish the reorder and position the item in the DOM based on
     // where the gesture ended. This method can also be called directly
     // by the reorder group
@@ -49,18 +45,9 @@ export class RecipeEditPage implements OnInit {
       return;
     }
 
-    const temp = arr[from];
-    arr[from] = arr[to];
-    arr[to] = temp;
-  }
-
-  ionViewDidEnter() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.recipeService.get(id);
-  }
-
-  ionViewDidLeave() {
-    this.recipeService.get(null);
+    const temp = arr[to];
+    arr[to] = arr[from];
+    arr[from] = temp;
   }
 
   trackByIndex(index, item) {
@@ -71,7 +58,16 @@ export class RecipeEditPage implements OnInit {
     return index;
   }
 
-  save(recipe: Recipe) {
-    this.recipeService.update(recipe);
+  save() {
+    this.saved.emit(this.recipe);
   }
+
+  addInstruction(recipe: Recipe) {
+    recipe.steps.push({instructions: '', order: null});
+  }
+
+  addIngredient(recipe: Recipe) {
+    recipe.ingredients.push('');
+  }
+
 }
