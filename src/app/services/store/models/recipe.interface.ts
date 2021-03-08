@@ -7,7 +7,7 @@ export interface Recipe {
   notes: string;
   cooktime: string;
   ingredients: string[];
-  steps: Step[];
+  steps: string[];
   tags: string[];
   foodType: string;
 }

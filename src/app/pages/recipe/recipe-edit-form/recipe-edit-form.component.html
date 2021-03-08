@@ -28,7 +28,7 @@
         </ion-toolbar>
         <ion-list>
           <ion-reorder-group id="ingredients" disabled="false" (ionItemReorder)="doReorder($event)">
-            <ion-item *ngFor="let item of recipe.ingredients;let i=index;trackBy:trackByIndex">
+            <ion-item *ngFor="let item of recipe.ingredients;let i=index">
               <ion-input placeholder="Ingredient" name="ing{{i}}" [(ngModel)]="recipe.ingredients[i]"></ion-input>
               <ion-reorder slot="start"></ion-reorder>
             </ion-item>
@@ -48,8 +48,8 @@
         </div>
         <ion-list>
           <ion-reorder-group id="instructions" disabled="false" (ionItemReorder)="reorderInstructions($event)">
-            <ion-item *ngFor="let step of recipe.steps;let i=index;trackBy:trackByIndex">
-              <ion-input placeholder="Instruction" name="step{{i}}" [(ngModel)]="recipe.steps[i].instructions"></ion-input>
+            <ion-item *ngFor="let step of recipe.steps;let i=index">
+              <ion-input placeholder="Instruction" name="step{{i}}" [(ngModel)]="recipe.steps[i]"></ion-input>
               <ion-reorder slot="start"></ion-reorder>
             </ion-item>
           </ion-reorder-group>
