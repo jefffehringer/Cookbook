@@ -32,7 +32,7 @@
           <ion-reorder-group id="ingredients" disabled="false" (ionItemReorder)="doReorder($event)">
             <ion-item *ngFor="let item of recipe.ingredients;let i=index;trackBy:trackByIndex">
               <ion-input placeholder="Ingredient" name="ing{{i}}" [(ngModel)]="recipe.ingredients[i]"></ion-input>
-              <ion-reorder slot="end"></ion-reorder>
+              <ion-reorder slot="start"></ion-reorder>
             </ion-item>
           </ion-reorder-group>
         </ion-list>
@@ -43,7 +43,7 @@
           <ion-reorder-group id="instructions" disabled="false" (ionItemReorder)="reorderInstructions($event)">
             <ion-item *ngFor="let step of recipe.steps;let i=index;trackBy:trackByIndex">
               <ion-input placeholder="Ingredient" name="step{{i}}" [(ngModel)]="recipe.steps[i].instructions"></ion-input>
-              <ion-reorder slot="end"></ion-reorder>
+              <ion-reorder slot="start"></ion-reorder>
             </ion-item>
           </ion-reorder-group>
         </ion-list>
@@ -57,7 +57,9 @@
     <ion-row>
       <ion-col>
         <h3>Notes</h3>
-        <p>{{recipe.notes}}</p>
+        <div>
+          <ion-textarea [(ngModel)]="recipe.notes"></ion-textarea>
+        </div>
       </ion-col>
     </ion-row>
 
