@@ -22,7 +22,8 @@
         "6 to 8 medium pork chops",
         "1 can cream of chicken soup",
         "2 Tbsp water",
-        "1 pkg onion soup mix"
+        "1 pkg onion soup mix",
+        "Dunno"
       ],
       "steps": [
         {
@@ -40,6 +41,14 @@
         {
           "instructions": "Bake at 350 for 40-50 minutes",
           "order": 3
+        },
+        {
+          "instructions": "Test",
+          "order": null
+        },
+        {
+          "instructions": "Test2 ",
+          "order": null
         }
       ]
     },

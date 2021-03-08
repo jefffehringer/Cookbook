@@ -21,10 +21,11 @@ export class RecipeEditPage implements OnInit {
   ngOnInit() {
   }
 
-  doReorder(ev: CustomEvent<ItemReorderEventDetail>) {
+  doReorder(ev: CustomEvent<ItemReorderEventDetail>, recipe: Recipe) {
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
     console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
+
 
     // Finish the reorder and position the item in the DOM based on
     // where the gesture ended. This method can also be called directly
@@ -62,5 +63,13 @@ export class RecipeEditPage implements OnInit {
 
   save(recipe: Recipe) {
     this.recipeService.update(recipe);
+  }
+
+  addInstruction(recipe: Recipe) {
+    recipe.steps.push({instructions: '', order: null});
+  }
+
+  addIngredient(recipe: Recipe) {
+    recipe.ingredients.push('');
   }
 }
