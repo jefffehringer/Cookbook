@@ -9,5 +9,5 @@
     <ion-spinner></ion-spinner>
   </ng-template>
   <app-recipe-edit-form *ngIf="recipe$ | async as recipe;else spinner" [recipe]="recipe"
-    (saved)="save($event)"></app-recipe-edit-form>
+    (saved)="save($event)" (navigateBack)="goBack()"></app-recipe-edit-form>
   </ion-content>

@@ -27,12 +27,12 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-list>
-          <ion-reorder-group id="ingredients" disabled="false" (ionItemReorder)="doReorder($event)">
-            <ion-item *ngFor="let item of recipe.ingredients;let i=index">
-              <ion-input placeholder="Ingredient" name="ing{{i}}" [(ngModel)]="recipe.ingredients[i]"></ion-input>
-              <ion-reorder slot="start"></ion-reorder>
-            </ion-item>
-          </ion-reorder-group>
+          <ion-item *ngFor="let item of recipe.ingredients;let i=index;trackBy:trackByIndex;let isFirst=first;let isLast=last;">
+            <ion-input placeholder="Ingredient" name="ing{{i}}" [(ngModel)]="recipe.ingredients[i]"></ion-input>
+            <ion-button icon-only color="light" slot="end" (click)="removeIngredient(i)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
         </ion-list>
       </ion-col>
       <ion-col size="12" size-md="6">
@@ -47,12 +47,12 @@
           </ion-toolbar>
         </div>
         <ion-list>
-          <ion-reorder-group id="instructions" disabled="false" (ionItemReorder)="reorderInstructions($event)">
-            <ion-item *ngFor="let step of recipe.steps;let i=index">
-              <ion-input placeholder="Instruction" name="step{{i}}" [(ngModel)]="recipe.steps[i]"></ion-input>
-              <ion-reorder slot="start"></ion-reorder>
+            <ion-item *ngFor="let rec of recipe.steps;let i=index;trackBy:trackByIndex">
+              <ion-textarea placeholder="Instruction" autoGrow="true" name="dddd{{i}}" [(ngModel)]="recipe.steps[i]"></ion-textarea>
+              <ion-button icon-only color="light" slot="end">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
             </ion-item>
-          </ion-reorder-group>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -72,6 +72,7 @@
 
     <ion-row>
       <ion-col>
+        <ion-button size="small" (click)="goBack()" color="light">Cancel</ion-button>
         <ion-button size="small" (click)="save()">Save</ion-button>
       </ion-col>
     </ion-row>

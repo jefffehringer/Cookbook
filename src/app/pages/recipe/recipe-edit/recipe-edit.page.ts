@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../services/recipe.services';
-import { ItemReorderEventDetail } from '@ionic/core';
 import { Recipe } from '@cook/store/models/recipe.interface';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -15,63 +15,30 @@ export class RecipeEditPage implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit() {
   }
 
-  doReorder(ev: CustomEvent<ItemReorderEventDetail>, recipe: Recipe) {
-    // The `from` and `to` properties contain the index of the item
-    // when the drag started and ended, respectively
-    console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
-    this.swap(recipe.ingredients, ev.detail.from, ev.detail.to);
-
-    // Finish the reorder and position the item in the DOM based on
-    // where the gesture ended. This method can also be called directly
-    // by the reorder group
-    ev.detail.complete();
-  }
-
-  reorderInstructions(ev: CustomEvent<ItemReorderEventDetail>) {
-    // The `from` and `to` properties contain the index of the item
-    // when the drag started and ended, respectively
-    console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
-
-    // Finish the reorder and position the item in the DOM based on
-    // where the gesture ended. This method can also be called directly
-    // by the reorder group
-    ev.detail.complete();
-  }
-
-  swap(arr: any[], from: number, to: number) {
-    if (from < 0 || from >= arr.length || to < 0 || to >= arr.length) {
-      return;
-    }
-
-    const temp = arr[from];
-    arr[from] = arr[to];
-    arr[to] = temp;
-  }
-
   ionViewDidEnter() {
     const id = this.route.snapshot.paramMap.get('id');
     this.recipeService.get(id);
+
+    this.recipeService.updateSuccess$
+      .subscribe(a => this.goBack());
   }
 
   ionViewDidLeave() {
     this.recipeService.get(null);
   }
 
-  trackByIndex(index, item) {
-    return index;
-  }
-
-  trackByStep(index, item) {
-    return index;
-  }
-
   save(recipe: Recipe) {
     this.recipeService.update(recipe);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
