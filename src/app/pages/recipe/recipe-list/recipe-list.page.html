@@ -10,6 +10,11 @@
 <ion-content fullscreen="true">
   <ion-grid fixed>
     <ion-row>
+      <ion-col>
+        <ion-button size="small" routerLink="/recipes/create">Create</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col size="12" size-md="6" *ngFor="let recipe of recipes$ | async">
         <ion-card>
           <ion-card-header>

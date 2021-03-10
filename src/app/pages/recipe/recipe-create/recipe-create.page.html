@@ -1,0 +1,16 @@
+<ion-header *ngIf="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>New Recipe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-template #spinner>
+    <ion-spinner></ion-spinner>
+  </ng-template>
+  <app-recipe-edit-form *ngIf="recipe$ | async as recipe;else spinner" [recipe]="recipe"
+    (saved)="save($event)" (navigateBack)="goBack()"></app-recipe-edit-form>
+  </ion-content>
