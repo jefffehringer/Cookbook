@@ -165,10 +165,14 @@ export class StoreService<T> {
         }),
         finalize(() => this.deleting = false)
       )
-      .subscribe(d => {
+      .subscribe((d) => {
         this.remove(id);
         this.deleteSuccessSubject.next();
       });
+  }
+
+  select(val: T) {
+    this.selected = val;
   }
 
   private remove(val: T) {

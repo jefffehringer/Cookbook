@@ -41,6 +41,12 @@ export class RecipeEditFormComponent implements OnInit {
     this.recipe.ingredients.splice(idx, 1);
   }
 
+  removeInstruction(idx: number) {
+    console.log({remove: idx});
+
+    this.recipe.steps.splice(idx, 1);
+  }
+
   goBack() {
     this.navigateBack.emit();
   }

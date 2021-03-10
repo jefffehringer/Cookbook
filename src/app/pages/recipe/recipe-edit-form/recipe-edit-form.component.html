@@ -47,11 +47,13 @@
           </ion-toolbar>
         </div>
         <ion-list>
-            <ion-item *ngFor="let rec of recipe.steps;let i=index;trackBy:trackByIndex">
-              <ion-textarea placeholder="Instruction" autoGrow="true" name="dddd{{i}}" [(ngModel)]="recipe.steps[i]"></ion-textarea>
-              <ion-button icon-only color="light" slot="end">
-                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-              </ion-button>
+            <ion-item *ngFor="let rec of recipe.steps;let i=index;trackBy:trackByIndex" class="ion-justify-content-center">
+              <ion-textarea placeholder="Instruction" autoGrow="true" rows="1" name="dddd{{i}}" [(ngModel)]="recipe.steps[i]"></ion-textarea>
+              <div class="d-flex ion-justify-content-center ion-align-items-center" slot="end">
+                <ion-button icon-only color="light" (click)="removeInstruction(i)">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </div>
             </ion-item>
         </ion-list>
       </ion-col>

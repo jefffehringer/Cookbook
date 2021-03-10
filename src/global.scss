@@ -59,6 +59,10 @@
   height: 25%;
 }
 
+.d-flex {
+  display: flex;
+}
+
 .ol-ul-list li {
   font-family: var(--ion-font-family, inherit);
   font-size: var(--font-size);
@@ -74,3 +78,4 @@ ion-input, ion-textarea {
   --background: rgb(239, 239, 239, 0.5) !important;
   border-radius: 5px;
 }
+

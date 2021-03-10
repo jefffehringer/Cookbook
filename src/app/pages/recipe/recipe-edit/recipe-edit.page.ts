@@ -24,7 +24,11 @@ export class RecipeEditPage implements OnInit {
 
   ionViewDidEnter() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.recipeService.get(id);
+    if (id === '-1') {
+      this.recipeService.select(this.recipeService.generate());
+    } else {
+      this.recipeService.get(id);
+    }
 
     this.recipeService.updateSuccess$
       .subscribe(a => this.goBack());
