@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { RecipeCreatePageRoutingModule } from './recipe-create-routing.module';
 
 import { RecipeCreatePage } from './recipe-create.page';
-import { RecipeEditFormComponent } from '../recipe-edit-form/recipe-edit-form.component';
+import { ComponentModule } from 'app/modules/component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecipeCreatePageRoutingModule
+    RecipeCreatePageRoutingModule,
+    ComponentModule
   ],
-  declarations: [RecipeCreatePage, RecipeEditFormComponent]
+  declarations: [RecipeCreatePage]
 })
 export class RecipeCreatePageModule {}
