@@ -2,36 +2,36 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12">
-        <div>
+        <ion-item lines="full">
           <ion-label position="stacked">Recipe Name</ion-label>
           <ion-input placeholder="Recipe Name" [(ngModel)]="recipe.name"></ion-input>
-        </div>
-        <div>
+        </ion-item>
+        <ion-item>
           <ion-label position="stacked">Cook Time</ion-label>
           <ion-input placeholder="20 minutes" [(ngModel)]="recipe.cooktime"></ion-input>
-        </div>
-        <div>
+        </ion-item>
+        <ion-item>
           <ion-label position="stacked">Meal Type</ion-label>
           <ion-input placeholder="Breakfast" [(ngModel)]="recipe.foodType"></ion-input>
-        </div>
+        </ion-item>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom">
       <ion-col size="12" size-md="6">
         <ion-toolbar>
           <ion-title>Ingredients</ion-title>
-          <ion-buttons slot="primary">
-            <ion-button color="success" (click)="addIngredient(recipe)">
-              <ion-icon slot="icon-only" ios="add-circle-outline" md="add-circle-outline"></ion-icon>
-            </ion-button>
-          </ion-buttons>
         </ion-toolbar>
         <ion-list>
           <ion-item *ngFor="let item of recipe.ingredients;let i=index;trackBy:trackByIndex;let isFirst=first;let isLast=last;">
             <ion-input placeholder="Ingredient" name="ing{{i}}" [(ngModel)]="recipe.ingredients[i]"></ion-input>
-            <ion-button icon-only color="light" slot="end" (click)="removeIngredient(i)">
+            <ion-button icon-only color="light" item-right (click)="removeIngredient(i)">
               <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
             </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-input class="ion-margin-start" clear-input [(ngModel)]="newIngredient" type="text"
+              placeholder="New Ingredient" (keyup.enter)="addIngredient()"></ion-input>
+            <ion-button (click)="addIngredient()">Add</ion-button>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -39,11 +39,6 @@
         <div>
           <ion-toolbar>
             <ion-title>Instructions</ion-title>
-            <ion-buttons slot="primary">
-              <ion-button color="success" (click)="addInstruction(recipe)">
-                <ion-icon slot="icon-only" ios="add-circle-outline" md="add-circle-outline"></ion-icon>
-              </ion-button>
-            </ion-buttons>
           </ion-toolbar>
         </div>
         <ion-list>
@@ -55,20 +50,30 @@
                 </ion-button>
               </div>
             </ion-item>
+            <ion-item>
+              <ion-input class="ion-margin-start" clear-input [(ngModel)]="newIngredient" type="text"
+                placeholder="New Instruction" (keyup.enter)="addInstruction()"></ion-input>
+              <ion-button (click)="addInstruction()">Add</ion-button>
+            </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-button size="small" color="light" *ngFor="let tag of recipe.tags">{{tag}}</ion-button>
+        <ion-item>
+          <ion-input class="ion-margin-start" clear-input [(ngModel)]="newTag" type="text"
+            placeholder="New Tag Name" (keyup.enter)="addTag()"></ion-input>
+          <ion-button (click)="addTag()">Add</ion-button>
+        </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <h3>Notes</h3>
-        <div>
-          <ion-textarea type="text" [(ngModel)]="recipe.notes" placeholder="Notes"></ion-textarea>
-        </div>
+        <ion-item>
+          <ion-label position="stacked">Notes</ion-label>
+          <ion-textarea type="text" [(ngModel)]="recipe.notes" placeholder="Turn off oven"></ion-textarea>
+        </ion-item>
       </ion-col>
     </ion-row>
 

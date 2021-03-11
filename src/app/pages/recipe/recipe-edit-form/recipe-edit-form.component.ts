@@ -10,7 +10,9 @@ export class RecipeEditFormComponent implements OnInit {
   @Input() recipe: Recipe;
   @Output() saved = new EventEmitter<Recipe>();
   @Output() navigateBack = new EventEmitter<void>();
-
+  newTag = '';
+  newIngredient = '';
+  newInstruction = '';
   constructor(
 
   ) { }
@@ -29,12 +31,18 @@ export class RecipeEditFormComponent implements OnInit {
     this.saved.emit(this.recipe);
   }
 
-  addInstruction(recipe: Recipe) {
-    recipe.steps.push('');
+  addInstruction() {
+    if (this.newInstruction.length > 0) {
+      this.recipe.steps.push(this.newInstruction);
+      this.newInstruction = '';
+    }
   }
 
-  addIngredient(recipe: Recipe) {
-    recipe.ingredients.push('');
+  addIngredient() {
+    if (this.newIngredient.length > 0) {
+      this.recipe.ingredients.push(this.newIngredient);
+      this.newIngredient = '';
+    }
   }
 
   removeIngredient(idx: number) {
@@ -49,5 +57,12 @@ export class RecipeEditFormComponent implements OnInit {
 
   goBack() {
     this.navigateBack.emit();
+  }
+
+  addTag() {
+    if (this.newTag.length > 0) {
+      this.recipe.tags.push(this.newTag);
+      this.newTag = '';
+    }
   }
 }
