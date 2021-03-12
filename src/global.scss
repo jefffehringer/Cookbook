@@ -74,6 +74,6 @@
   border-bottom: 1px grey solid;
 }
 
-ion-input, ion-textarea {
+.right-pane {
+  border-left: 1px solid var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
 }
-

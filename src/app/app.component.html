@@ -24,6 +24,24 @@
         </ion-list>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-grid id="main-content">
+      <ion-row class="h-100">
+        <ion-col>
+          <ion-router-outlet></ion-router-outlet>
+        </ion-col>
+        <ion-col class="right-pane" *ngIf="showRightPane" size="3">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Shuffle</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              Keep close to Nature's heart... and break clear away, once in awhile,
+              and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-split-pane>
 </ion-app>
