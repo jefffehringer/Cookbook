@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../services/recipe.services';
 import { Location } from '@angular/common';
-import { Recipe } from '@cook/store/models/recipe.interface';
+import { Recipe } from '@cook/models/recipe.interface';
 
 @Component({
   selector: 'app-recipe-create',

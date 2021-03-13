@@ -11,7 +11,8 @@ export class AppComponent {
     { title: 'Recipes', url: '/recipes', icon: 'pizza' },
     { title: 'Tags', url: '/folder/Tags', icon: 'pricetags' },
     { title: 'Cookbooks', url: '/folder/Cookbooks', icon: 'book' },
-    { title: 'Whats for Dinner?', url: '/folder/Dinner', icon: 'shuffle' }
+    { title: 'Whats for Dinner?', url: '/folder/Dinner', icon: 'shuffle' },
+    { title: 'Register', url: '/register', icon: 'shuffle' }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Recipe } from '@cook/store/models/recipe.interface';
+import { Recipe } from '@cook/models/recipe.interface';
 
 @Component({
   selector: 'app-recipe-edit-form',

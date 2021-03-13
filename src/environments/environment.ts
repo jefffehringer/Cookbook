@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  appDomain: 'localhost:8100',  // Used mostly for okta return uri
-  apiUrl: 'http://localhost:3000/'
+  appDomain: 'localhost:8100',
+  apiUrl: 'http://localhost:3000/',
+  firebaseConfig: {
+    apiKey: 'AIzaSyCMT0CtKF70WhTEvrpqqoH69S_484kPBQ0',
+    authDomain: 'cookbook-e149e.firebaseapp.com',
+    projectId: 'cookbook-e149e',
+    storageBucket: 'cookbook-e149e.appspot.com',
+    messagingSenderId: '245577872582',
+    appId: '1:245577872582:web:508677533a5ec533ae53c7',
+    measurementId: 'G-KJ8VH2XRZ6'
+  }
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

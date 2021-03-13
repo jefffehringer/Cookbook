@@ -2,7 +2,7 @@ import { environment } from '@cook/environment/environment';
 import { Injectable } from '@angular/core';
 import { StoreService } from '@cook/store/store.service';
 import { HttpService } from '@cook/store/http.service';
-import { Recipe } from '@cook/store/models/recipe.interface';
+import { Recipe } from '@cook/models/recipe.interface';
 
 @Injectable({
   providedIn: 'root'
