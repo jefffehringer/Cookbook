@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthenticatedGuard } from './guards/authenticated.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'recipes',
     pathMatch: 'full'
   },
   {
@@ -13,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'recipes',
-    loadChildren: () => import('./pages/recipe/recipe-list/recipe-list.module').then( m => m.RecipeListPageModule)
+    loadChildren: () => import('./pages/recipe/recipe-list/recipe-list.module').then( m => m.RecipeListPageModule),
+    canActivate: [AuthenticatedGuard]
   },
   {
     path: 'recipes/create',
-    loadChildren: () => import('./pages/recipe/recipe-create/recipe-create.module').then( m => m.RecipeCreatePageModule)
+    loadChildren: () => import('./pages/recipe/recipe-create/recipe-create.module').then( m => m.RecipeCreatePageModule),
+    canActivate: [AuthenticatedGuard]
   },
   {
     path: 'recipes/:id',
@@ -25,15 +28,21 @@ const routes: Routes = [
   },
   {
     path: 'recipes/:id/edit',
-    loadChildren: () => import('./pages/recipe/recipe-edit/recipe-edit.module').then( m => m.RecipeEditPageModule)
-  },  {
+    loadChildren: () => import('./pages/recipe/recipe-edit/recipe-edit.module').then( m => m.RecipeEditPageModule),
+    canActivate: [AuthenticatedGuard]
+  },
+  {
     path: 'register',
     loadChildren: () => import('./pages/auth/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'email-verify',
+    loadChildren: () => import('./pages/auth/email-verify/email-verify.module').then( m => m.EmailVerifyPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
   }
-
-
-
-
 ];
 
 @NgModule({

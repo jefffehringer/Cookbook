@@ -2,13 +2,28 @@ import { environment } from '@cook/environment/environment';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  userData: any;
+  userData: firebase.User;
+  idToken: any;
+
+  get isLoggedIn(): boolean {
+    if (!this.userData) {
+      this.userData = JSON.parse(localStorage.getItem('user'));
+    }
+    return this.userData !== null && this.userData.emailVerified;
+  }
+
+  get isEmailVerified(): boolean {
+    if (!this.userData) {
+      this.userData = JSON.parse(localStorage.getItem('user'));
+    }
+    return this.userData && this.userData.emailVerified;
+  }
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -18,15 +33,29 @@ export class AuthService {
     this.fireAuth.authState.subscribe(user => {
       console.log({authState: user});
 
-      if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
-      } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
-      }
+      this.NewUserData(user);
     });
+
+    this.fireAuth.onIdTokenChanged(user => {
+      console.log({onIdTokenChanged: user});
+
+      this.NewUserData(user);
+    });
+  }
+
+  private NewUserData(user: firebase.User) {
+    if (user) {
+      this.userData = user;
+      this.idToken = this.userData.getIdToken();
+      localStorage.setItem('user', JSON.stringify(this.userData));
+    } else {
+      localStorage.setItem('user', null);
+      this.idToken = null;
+    }
+  }
+
+  SendVerificationMail() {
+    this.userData.sendEmailVerification();
   }
 
   // Login in with email/password
@@ -40,16 +69,18 @@ export class AuthService {
   }
 
   // Sign in with Gmail
-  /*GoogleAuth() {
-    return this.AuthLogin(new this.fireAuth.GoogleAuthProvider());
-  }*/
+  GoogleAuth() {
+    return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
+  }
 
   // Auth providers
   AuthLogin(provider) {
     return this.fireAuth.signInWithPopup(provider)
     .then((result) => {
+      console.log(result);
+
       this.ngZone.run(() => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/']);
       });
       this.SetUserData(result.user);
     }).catch((error) => {
