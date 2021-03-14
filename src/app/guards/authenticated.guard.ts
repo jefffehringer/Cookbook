@@ -12,13 +12,7 @@ export class AuthenticatedGuard implements CanActivate {
     private router: Router
   ) { }
 
-  canActivate(): boolean {
-    const loggedIn = this.auth.isLoggedIn;
-
-    if (!loggedIn) {
-      this.router.navigate(['login']);
-    }
-
-    return loggedIn;
+  canActivate(): Observable<boolean> {
+    return this.auth.loggedIn$;
   }
 }

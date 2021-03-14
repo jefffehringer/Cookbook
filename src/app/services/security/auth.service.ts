@@ -1,61 +1,48 @@
-import { environment } from '@cook/environment/environment';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  userData: firebase.User;
+  private user: firebase.User;
+  token: any;
+
+  userData$ = this.fireAuth.authState
+          .pipe(
+            tap(u => {
+              console.log({tapped: u});
+
+              if (u === null) {
+                this.router.navigate(['login']);
+              } else if (!u.emailVerified) {
+                this.router.navigate(['email-verify']);
+              }
+
+              this.user = u;
+              this.token = u?.getIdToken();
+            })
+          );
+
+  loggedIn$ = this.userData$.pipe(map(u => u !== null));
+
   idToken: any;
-
-  get isLoggedIn(): boolean {
-    if (!this.userData) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    }
-    return this.userData !== null && this.userData.emailVerified;
-  }
-
-  get isEmailVerified(): boolean {
-    if (!this.userData) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    }
-    return this.userData && this.userData.emailVerified;
-  }
 
   constructor(
     private fireAuth: AngularFireAuth,
     private router: Router,
     private ngZone: NgZone
   ) {
-    this.fireAuth.authState.subscribe(user => {
-      console.log({authState: user});
-
-      this.NewUserData(user);
+    this.fireAuth.onIdTokenChanged(u => {
+      this.token = u?.getIdToken();
     });
-
-    this.fireAuth.onIdTokenChanged(user => {
-      console.log({onIdTokenChanged: user});
-
-      this.NewUserData(user);
-    });
-  }
-
-  private NewUserData(user: firebase.User) {
-    if (user) {
-      this.userData = user;
-      this.idToken = this.userData.getIdToken();
-      localStorage.setItem('user', JSON.stringify(this.userData));
-    } else {
-      localStorage.setItem('user', null);
-      this.idToken = null;
-    }
   }
 
   SendVerificationMail() {
-    this.userData.sendEmailVerification();
+    this.user.sendEmailVerification();
   }
 
   // Login in with email/password
@@ -77,30 +64,12 @@ export class AuthService {
   AuthLogin(provider) {
     return this.fireAuth.signInWithPopup(provider)
     .then((result) => {
-      console.log(result);
-
       this.ngZone.run(() => {
         this.router.navigate(['/']);
       });
-      this.SetUserData(result.user);
     }).catch((error) => {
       window.alert(error);
     });
-  }
-
-  // Store user in localStorage
-  SetUserData(user) {
-    // const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${user.uid}`);
-    /*const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified
-    }
-    return userRef.set(userData, {
-      merge: true
-    })*/
   }
 
   // Sign-out

@@ -15,17 +15,19 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.auth.loggedIn$.subscribe(l => {
+      console.log({logged: l});
+
+      if (l) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   logIn(email, password) {
     this.auth.SignIn(email.value, password.value)
       .then((res) => {
-        if (this.auth.isEmailVerified) {
-          this.router.navigate(['/']);
-        } else {
-          this.router.navigate(['email-verify']);
-          return false;
-        }
+        this.router.navigate(['/']);
       }).catch((error) => {
         window.alert(error.message);
       });
