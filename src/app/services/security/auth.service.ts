@@ -9,7 +9,7 @@ import { map, tap } from 'rxjs/operators';
 })
 export class AuthService {
   private user: firebase.User;
-  token: any;
+  private token: any;
 
   userData$ = this.fireAuth.authState
           .pipe(
@@ -36,32 +36,39 @@ export class AuthService {
     private router: Router,
     private ngZone: NgZone
   ) {
+    firebase.auth().useDeviceLanguage();
+
     this.fireAuth.onIdTokenChanged(u => {
       this.token = u?.getIdToken();
     });
   }
 
-  SendVerificationMail() {
+  sendVerificationMail() {
     this.user.sendEmailVerification();
   }
 
   // Login in with email/password
-  SignIn(email, password) {
+  signIn(email, password) {
     return this.fireAuth.signInWithEmailAndPassword(email, password);
   }
 
   // Register user with email/password
-  RegisterUser(email, password) {
+  registerUser(email, password) {
     return this.fireAuth.createUserWithEmailAndPassword(email, password);
   }
 
   // Sign in with Gmail
-  GoogleAuth() {
-    return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
+  googleAuth() {
+    return this.authLogin(new firebase.auth.GoogleAuthProvider());
   }
 
+  // Sign in with Twitter
+  /*twitterAuth() {
+    return this.authLogin(new firebase.auth.TwitterAuthProvider());
+  }*/
+
   // Auth providers
-  AuthLogin(provider) {
+  authLogin(provider) {
     return this.fireAuth.signInWithPopup(provider)
     .then((result) => {
       this.ngZone.run(() => {
@@ -73,9 +80,8 @@ export class AuthService {
   }
 
   // Sign-out
-  SignOut() {
+  signOut() {
     return this.fireAuth.signOut().then(() => {
-      localStorage.removeItem('user');
       this.router.navigate(['login']);
     });
   }

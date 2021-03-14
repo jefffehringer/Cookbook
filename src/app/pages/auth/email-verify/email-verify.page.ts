@@ -16,6 +16,6 @@ export class EmailVerifyPage implements OnInit {
   }
 
   resend() {
-    this.auth.SendVerificationMail();
+    this.auth.sendVerificationMail();
   }
 }

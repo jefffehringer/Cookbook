@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
   }
 
   logIn(email, password) {
-    this.auth.SignIn(email.value, password.value)
+    this.auth.signIn(email.value, password.value)
       .then((res) => {
         this.router.navigate(['/']);
       }).catch((error) => {
@@ -34,6 +34,6 @@ export class LoginPage implements OnInit {
   }
 
   googleLogin() {
-    this.auth.GoogleAuth();
+    this.auth.googleAuth();
   }
 }
