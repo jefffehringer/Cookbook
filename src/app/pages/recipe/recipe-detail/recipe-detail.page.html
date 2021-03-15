@@ -16,19 +16,21 @@
     <ion-row>
       <ion-col size="12">
         <h3>{{recipe.name}}</h3>
-        <div>Author: {{recipe.author}}</div>
+        <div>Author: {{recipe.createdBy.name}}</div>
         <div>Cook time: {{recipe.cooktime}}</div>
         <div>Meal type: {{recipe.foodType}}</div>
         </ion-col>
     </ion-row>
     <ion-row class="border-bottom">
-      <ion-col size="12" size-md="6">
+      <ion-col size="12">
         <h4>Ingredients</h4>
         <ul class="ol-ul-list">
           <li *ngFor="let ing of recipe.ingredients">{{ing}}</li>
         </ul>
       </ion-col>
-      <ion-col size="12" size-md="6">
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
         <h4>Instructions</h4>
         <ol class="ol-ul-list">
           <li *ngFor="let step of recipe.steps">{{step}}</li>

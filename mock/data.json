@@ -1,11 +1,16 @@
 {
-  "users": [
+  "userProfiles": [
+    {
+      "uid": "3r8F1EsKvabbdPk8OsLm2FtUxgU2",
+      "name": "Jeff Fehringer",
+      "email": "jeff.fehringer@gmail.com",
+      "id": 1
+    }
   ],
   "recipes": [
     {
       "id": "5c7f346c8934843230445742",
       "name": "Baked Pork Chop Test",
-      "author": "Marianna",
       "createdBy": {
         "userId": "6Q0wBRDH1IeRZlECG66H0PPDXKD2",
         "name": "Jeff Fehringer"
@@ -34,6 +39,10 @@
     {
       "id": "5caff055b868561624ed6723",
       "name": "Test 3",
+      "createdBy": {
+        "userId": "6Q0wBRDH1IeRZlECG66H0PPDXKD2",
+        "name": "Jeff Fehringer"
+      },
       "author": "Me",
       "notes": "N/A",
       "cooktime": "3",
@@ -52,7 +61,10 @@
     {
       "id": "5cb017490413bf35f84e788f",
       "name": "Aurea's Eggs",
-      "author": "Aurea",
+      "createdBy": {
+        "userId": "6Q0wBRDH1IeRZlECG66H0PPDXKD2",
+        "name": "Jeff Fehringer"
+      },
       "notes": "Eat them raw.  Do not eat the shell",
       "cooktime": "0 minutes",
       "foodType": "",
@@ -68,7 +80,11 @@
     },
     {
       "id": "OrBtZHO",
-      "name": "Test abc",
+      "name": "Test",
+      "createdBy": {
+        "userId": "6Q0wBRDH1IeRZlECG66H0PPDXKD2",
+        "name": "Jeff Fehringer"
+      },
       "notes": "Test notes",
       "author": "",
       "ingredients": [

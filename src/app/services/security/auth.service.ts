@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { UserProfileService } from 'app/pages/profile/services/user-profile.service';
 import firebase from 'firebase/app';
 import { map, tap } from 'rxjs/operators';
 
@@ -24,6 +25,7 @@ export class AuthService {
 
               this.user = u;
               this.token = u?.getIdToken();
+              this.userProfileService.loadUser(u);
             })
           );
 
@@ -34,7 +36,8 @@ export class AuthService {
   constructor(
     private fireAuth: AngularFireAuth,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private userProfileService: UserProfileService
   ) {
     this.fireAuth.useDeviceLanguage();
 
@@ -74,6 +77,10 @@ export class AuthService {
       this.ngZone.run(() => {
         this.router.navigate(['/']);
       });
+
+      if (result.additionalUserInfo?.isNewUser) {
+        this.userProfileService.newUser(result.user);
+      }
     }).catch((error) => {
       window.alert(error);
     });

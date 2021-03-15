@@ -24,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'recipes/:id',
-    loadChildren: () => import('./pages/recipe/recipe-detail/recipe-detail.module').then( m => m.RecipeDetailPageModule)
+    loadChildren: () => import('./pages/recipe/recipe-detail/recipe-detail.module').then( m => m.RecipeDetailPageModule),
+    canActivate: [AuthenticatedGuard]
   },
   {
     path: 'recipes/:id/edit',
@@ -42,9 +43,11 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'profile-detail',
-    loadChildren: () => import('./pages/profile/profile-detail/profile-detail.module').then( m => m.ProfileDetailPageModule)
+    loadChildren: () => import('./pages/profile/profile-detail/profile-detail.module').then( m => m.ProfileDetailPageModule),
+    canActivate: [AuthenticatedGuard]
   }
 
 ];

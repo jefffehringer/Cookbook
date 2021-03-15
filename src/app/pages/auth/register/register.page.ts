@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserProfileService } from 'app/pages/profile/services/user-profile.service';
 import { AuthService } from 'app/services/security/auth.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class RegisterPage implements OnInit {
 
   constructor(
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private userService: UserProfileService
   ) { }
 
   ngOnInit() {
@@ -21,7 +23,7 @@ export class RegisterPage implements OnInit {
     this.auth.registerUser(email.value, password.value)
       .then((res) => {
         res.user.sendEmailVerification();
-        // TODO Create new user record
+        this.userService.newUser(res.user);
         this.router.navigate(['email-verify']);
       }).catch((error) => {
         window.alert(error.message);

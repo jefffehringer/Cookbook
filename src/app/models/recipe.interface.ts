@@ -1,4 +1,4 @@
-import { Step } from './step.interface';
+import { UserProfile } from 'app/pages/profile/models/user-profile.interface';
 
 export interface Recipe {
   id: string;
@@ -10,4 +10,5 @@ export interface Recipe {
   steps: string[];
   tags: string[];
   foodType: string;
+  createdBy: UserProfile;
 }

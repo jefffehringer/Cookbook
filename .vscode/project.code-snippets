@@ -27,5 +27,34 @@
 			"\tthis.${1:name}Subject.next(val);",
 			"}"
 		]
-	}
+	},
+  "Empty store service": {
+    "description": "",
+    "prefix": "service-store",
+    "body": [
+      "import { environment } from '@cook/environment/environment';",
+      "import { Injectable } from '@angular/core';",
+      "import { StoreService } from '@cook/store/store.service';",
+      "import { HttpService } from '@cook/store/http.service';",
+      "import { ${2:ModelName} } from '@cook/models/${1:namePath}.interface';",
+      "",
+      "@Injectable({",
+      "  providedIn: 'root'",
+      "})",
+      "export class ${2:ModelName}Service extends StoreService<${2:ModelName}> {",
+      "  constructor(",
+      "    protected http: HttpService<${2:ModelName}>",
+      "  ) {",
+      "    super(",
+      "      http,",
+      "      {",
+      "        url: environment.apiUrl + '${1:namePath}s/',",
+      "        idField: 'id',",
+      "        itemName: '${2:ModelName}'",
+      "      }",
+      "    );",
+      "  }",
+      "}"
+    ]
+  }
 }
