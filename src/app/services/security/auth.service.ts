@@ -36,7 +36,7 @@ export class AuthService {
     private router: Router,
     private ngZone: NgZone
   ) {
-    firebase.auth().useDeviceLanguage();
+    this.fireAuth.useDeviceLanguage();
 
     this.fireAuth.onIdTokenChanged(u => {
       this.token = u?.getIdToken();

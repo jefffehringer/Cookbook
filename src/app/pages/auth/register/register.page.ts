@@ -19,11 +19,12 @@ export class RegisterPage implements OnInit {
 
   signUp(email, password){
     this.auth.registerUser(email.value, password.value)
-    .then((res) => {
-      res.user.sendEmailVerification();
-      this.router.navigate(['email-verify']);
-    }).catch((error) => {
-      window.alert(error.message);
-    });
+      .then((res) => {
+        res.user.sendEmailVerification();
+        // TODO Create new user record
+        this.router.navigate(['email-verify']);
+      }).catch((error) => {
+        window.alert(error.message);
+      });
   }
 }

@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
+  },  {
+    path: 'profile-detail',
+    loadChildren: () => import('./pages/profile/profile-detail/profile-detail.module').then( m => m.ProfileDetailPageModule)
   }
+
 ];
 
 @NgModule({

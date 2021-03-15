@@ -1,9 +1,5 @@
 {
   "users": [
-    {
-      "sub": "google-oauth2|107982036569268459279",
-      "name": "Jeff"
-    }
   ],
   "recipes": [
     {
@@ -11,7 +7,7 @@
       "name": "Baked Pork Chop Test",
       "author": "Marianna",
       "createdBy": {
-        "userId": "",
+        "userId": "6Q0wBRDH1IeRZlECG66H0PPDXKD2",
         "name": "Jeff Fehringer"
       },
       "notes": "",
