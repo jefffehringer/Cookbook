@@ -1,18 +1,31 @@
 {
-	// Place your cookbook workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
-	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
-	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
-	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
-	// Placeholders with the same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"scope": "javascript,typescript",
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
+	"BehaviorSubject Observable Pair": {
+		"description": "",
+		"prefix": "behSub-obs",
+		"body": ["private ${1:name}Subject = new BehaviorSubject<${2:type}>(${3:defaultVal});",
+			"${1:name}$ = this.${1:name}Subject.asObservable();"
+		]
+	},
+	"Subject Observable Pair": {
+		"description": "",
+		"prefix": "sub-obs",
+		"body": ["private ${1:name}Subject = new Subject<${2:type}>();",
+			"${1:name}$ = this.${1:name}Subject.asObservable();"
+		]
+	},
+	"BehaviorSubject Observable getter setter Pair": {
+		"description": "",
+		"prefix": "behSub-obs-get-set",
+		"body": [
+			"private ${1:name}Subject = new BehaviorSubject<${2:type}>(${3:defaultVal});",
+			"${1:name}$ = this.${1:name}Subject.asObservable();",
+			"",
+			"protected get ${1:name}(): ${2:type} {",
+			"\treturn this.${1:name}Subject.getValue();",
+			"}",
+			"protected set ${1:name}(val: ${2:type}) {",
+			"\tthis.${1:name}Subject.next(val);",
+			"}"
+		]
+	}
 }
