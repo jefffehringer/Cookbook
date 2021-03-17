@@ -10,5 +10,6 @@ export interface Recipe {
   steps: string[];
   tags: string[];
   foodType: string;
+  description: string;
   createdBy: UserProfile;
 }

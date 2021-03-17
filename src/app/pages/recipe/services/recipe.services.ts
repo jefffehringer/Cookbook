@@ -24,12 +24,13 @@ export class RecipeService extends StoreService<Recipe> {
   generate(): Recipe {
     return {id: '', name: '', notes: '', author: '',
       ingredients: [], steps: [], cooktime: '',
-      tags: [], foodType: '',
+      tags: [], foodType: '', description: '',
       createdBy: {
         id: null,
         name: '',
         uid: null,
-        email: ''
+        email: '',
+        location: ''
       }
     };
   }

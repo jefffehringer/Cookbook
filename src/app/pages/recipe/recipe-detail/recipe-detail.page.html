@@ -16,12 +16,36 @@
     <ion-row>
       <ion-col size="12">
         <h3>{{recipe.name}}</h3>
-        <div>Author: {{recipe.createdBy.name}}</div>
-        <div>Cook time: {{recipe.cooktime}}</div>
-        <div>Meal type: {{recipe.foodType}}</div>
-        </ion-col>
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="https://picsum.photos/200?random=1987">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{recipe.createdBy.name}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-img src="https://picsum.photos/600/300"></ion-img>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon class="ion-no-margin" name="timer-outline" slot="start"></ion-icon>
+              <ion-label class="ion-no-margin">{{recipe.cooktime}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-icon class="ion-no-margin" name="pizza-outline" slot="start"></ion-icon>
+              <ion-label class="ion-no-margin">{{recipe.foodType}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
     </ion-row>
-    <ion-row class="border-bottom">
+    <ion-row>
       <ion-col size="12">
         <h4>Ingredients</h4>
         <ul class="ol-ul-list">
@@ -46,6 +70,29 @@
       <ion-col>
         <h3>Notes</h3>
         <p>{{recipe.notes}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item *ngFor="let comment of comments$ | async;let i=index">
+          <ion-avatar slot="start">
+            <img src="https://picsum.photos/200?random={{i}}">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{comment.createdBy.name}}</h2>
+            <p class="ion-text-wrap">{{comment.content}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-avatar slot="start">
+            <img src="https://picsum.photos/200">
+          </ion-avatar>
+          <ion-textarea placeholder="Add comment..." clear-input [(ngModel)]="newComment"
+            type="text" (keyup.enter)="addComment()" autoGrow="true"></ion-textarea>
+          <ion-button slot="end" fill="clear" (click)="addComment()">
+            <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>

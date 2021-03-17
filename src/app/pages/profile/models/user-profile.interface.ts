@@ -3,4 +3,5 @@ export interface UserProfile {
   name: string;
   uid: string;
   email: string;
+  location: string;
 }

@@ -29,10 +29,15 @@ export class UserProfileService extends StoreService<UserProfile> {
       uid: authUser.uid,
       name: authUser.displayName,
       email: authUser.email,
-      id: null
+      id: null,
+      location: ''
     };
 
     this.add(newUser);
+  }
+
+  currentProfile() {
+    return this.selected;
   }
 
   loadUser(authUser: firebase.User) {

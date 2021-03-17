@@ -82,8 +82,10 @@ export class StoreService<T> {
       return;
     }
     this.loading = true;
+    let url = this.settings.url;
+    url += filter.length > 0 ? `?${filter}` : '';
 
-    this.http.getAll(this.settings.url)
+    this.http.getAll(url)
       .pipe(
         catchError(e => {
           this.loadError = e;
