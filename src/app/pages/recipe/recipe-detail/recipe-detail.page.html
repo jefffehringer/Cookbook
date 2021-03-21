@@ -23,6 +23,10 @@
           <ion-label>
             <h2>{{recipe.createdBy.name}}</h2>
           </ion-label>
+          <ion-button fill="clear" slot="end" *ngIf="canEdit$ | async" routerLink="/recipes/{{recipe.id}}/edit">
+            <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+            Edit
+          </ion-button>
         </ion-item>
         <ion-row>
           <ion-col>
@@ -53,7 +57,14 @@
           <ion-col>
             <ion-item lines="full">
               <ion-button fill="clear" (click)="like(liked?.length > 0 ? liked[0] : null)" *ngIf="liked$ | async as liked">
-                <ion-icon slot="icon-only" name="heart-outline" [color]="liked?.length > 0 ? 'success' : 'dark'"></ion-icon>
+                <ion-icon slot="icon-only" [name]="liked?.length > 0 ? 'heart' : 'heart-outline'" [color]="liked?.length > 0 ? 'primary' : 'dark'"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-button fill="clear">
+                <ion-icon slot="icon-only" name="share-social-outline" color="dark"></ion-icon>
               </ion-button>
             </ion-item>
           </ion-col>
@@ -108,11 +119,6 @@
             <ion-icon slot="icon-only" name="play-outline"></ion-icon>
           </ion-button>
         </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button size="small" routerLink="/recipes/{{recipe.id}}/edit">Edit</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

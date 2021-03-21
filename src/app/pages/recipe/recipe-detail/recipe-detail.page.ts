@@ -5,6 +5,7 @@ import { RecipeLike } from '@cook/models/recipe-like.interface';
 import { UserProfileService } from 'app/pages/profile/services/user-profile.service';
 import { CommentService } from 'app/services/comments.service';
 import { RecipeLikeService } from 'app/services/recipe-like.service';
+import { combineLatest } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { RecipeService } from '../services/recipe.services';
 
@@ -22,11 +23,11 @@ export class RecipeDetailPage implements OnInit {
   loadingComments$ = this.commentService.loading$;
   comments$ = this.commentService.items$;
   haveRecipeValue = false;
-  liked$ = this.recipeLikeService.items$
-  .pipe(
-    tap(r => console.log({liked: r})
-    )
-  );
+  liked$ = this.recipeLikeService.items$;
+  canEdit$ = combineLatest([this.recipe$, this.profileService.selected$])
+            .pipe(
+              map(([recipe, user]) => recipe.createdBy.id === user.id)
+            );
   newComment = '';
   recipeId = '';
 
