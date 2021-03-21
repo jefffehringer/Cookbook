@@ -1,4 +1,17 @@
 {
+  "recipeLikes": [
+    {
+      "id": 1,
+      "recipeId": "5c7f346c8934843230445742",
+      "createdDate": "2021-03-21T19:32:34.196Z",
+      "user": {
+        "uid": "3r8F1EsKvabbdPk8OsLm2FtUxgU2",
+        "name": "Jeff Fehringer",
+        "email": "jeff.fehringer@gmail.com",
+        "id": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "5c7f34hg8934843230675742",
@@ -134,7 +147,8 @@
         "Fry pork chops to brown",
         "Cover chops with chicken soup mixed with water and top with dry onion soup mix",
         "Bake at 350 for 40-50 minutes"
-      ]
+      ],
+      "numberLikes": 1
     },
     {
       "id": "5caff055b868561624ed6723",
@@ -156,7 +170,8 @@
       "steps": [
         "Pour salt",
         "Throw salt"
-      ]
+      ],
+      "numberLikes": 0
     },
     {
       "id": "5cb017490413bf35f84e788f",
@@ -176,7 +191,8 @@
       "steps": [
         "Leave eggs in fridge",
         "Take out when ready to eat"
-      ]
+      ],
+      "numberLikes": 0
     },
     {
       "id": "OrBtZHO",
@@ -197,7 +213,8 @@
       ],
       "cooktime": "5 minutes",
       "tags": [],
-      "foodType": "Breakfast"
+      "foodType": "Breakfast",
+      "numberLikes": 0
     }
   ]
 }

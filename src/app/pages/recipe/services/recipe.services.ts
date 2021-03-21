@@ -25,6 +25,7 @@ export class RecipeService extends StoreService<Recipe> {
     return {id: '', name: '', notes: '', author: '',
       ingredients: [], steps: [], cooktime: '',
       tags: [], foodType: '', description: '',
+      numberLikes: 0,
       createdBy: {
         id: null,
         name: '',

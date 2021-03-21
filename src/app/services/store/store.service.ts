@@ -168,7 +168,7 @@ export class StoreService<T> {
         finalize(() => this.deleting = false)
       )
       .subscribe((d) => {
-        this.remove(id);
+        this.remove(val);
         this.deleteSuccessSubject.next();
       });
   }

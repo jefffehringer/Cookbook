@@ -12,4 +12,5 @@ export interface Recipe {
   foodType: string;
   description: string;
   createdBy: UserProfile;
+  numberLikes: number;
 }

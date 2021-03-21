@@ -31,15 +31,30 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item lines="none">
-              <ion-icon class="ion-no-margin" name="timer-outline" slot="start"></ion-icon>
-              <ion-label class="ion-no-margin">{{recipe.cooktime}}</ion-label>
+            <ion-item lines="full">
+              <ion-icon class="icon-less-margin" name="timer-outline" slot="start"></ion-icon>
+              <ion-label class="icon-less-margin">{{recipe.cooktime}}</ion-label>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item lines="none">
-              <ion-icon class="ion-no-margin" name="pizza-outline" slot="start"></ion-icon>
-              <ion-label class="ion-no-margin">{{recipe.foodType}}</ion-label>
+            <ion-item lines="full">
+              <ion-icon class="icon-less-margin" name="pizza-outline" slot="start"></ion-icon>
+              <ion-label class="icon-less-margin">{{recipe.foodType}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-icon class="icon-less-margin" name="heart-outline" slot="start"></ion-icon>
+              <ion-label class="icon-less-margin">{{recipe.numberLikes}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-button fill="clear" (click)="like(liked?.length > 0 ? liked[0] : null)" *ngIf="liked$ | async as liked">
+                <ion-icon slot="icon-only" name="heart-outline" [color]="liked?.length > 0 ? 'success' : 'dark'"></ion-icon>
+              </ion-button>
             </ion-item>
           </ion-col>
         </ion-row>

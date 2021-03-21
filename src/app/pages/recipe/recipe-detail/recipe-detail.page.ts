@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from '@cook/models/comment.interface';
+import { RecipeLike } from '@cook/models/recipe-like.interface';
 import { UserProfileService } from 'app/pages/profile/services/user-profile.service';
 import { CommentService } from 'app/services/comments.service';
-import { tap } from 'rxjs/operators';
+import { RecipeLikeService } from 'app/services/recipe-like.service';
+import { map, tap } from 'rxjs/operators';
 import { RecipeService } from '../services/recipe.services';
 
 @Component({
@@ -20,6 +22,11 @@ export class RecipeDetailPage implements OnInit {
   loadingComments$ = this.commentService.loading$;
   comments$ = this.commentService.items$;
   haveRecipeValue = false;
+  liked$ = this.recipeLikeService.items$
+  .pipe(
+    tap(r => console.log({liked: r})
+    )
+  );
   newComment = '';
   recipeId = '';
 
@@ -27,7 +34,8 @@ export class RecipeDetailPage implements OnInit {
     private recipeService: RecipeService,
     private commentService: CommentService,
     private route: ActivatedRoute,
-    private profileService: UserProfileService
+    private profileService: UserProfileService,
+    private recipeLikeService: RecipeLikeService
   ) { }
 
   ngOnInit() {
@@ -37,6 +45,7 @@ export class RecipeDetailPage implements OnInit {
     this.recipeId = this.route.snapshot.paramMap.get('id');
     this.recipeService.get(this.recipeId);
     this.commentService.load(`recipeId=${this.recipeId}`);
+    this.recipeLikeService.load(`recipeId=${this.recipeId}&user.userId=6Q0wBRDH1IeRZlECG66H0PPDXKD2`);
     this.newComment = '';
   }
 
@@ -56,5 +65,21 @@ export class RecipeDetailPage implements OnInit {
 
     this.commentService.add(comment);
     this.newComment = '';
+  }
+
+  like(alreadyLiked: RecipeLike) {
+    // TODO Improve this. Also need to update current recipe's liked total
+    if (alreadyLiked) {
+      this.recipeLikeService.delete(alreadyLiked);
+    } else {
+      const recipeLike: RecipeLike = {
+        id: null,
+        recipeId: this.recipeId,
+        createdDate: new Date(),
+        user: this.profileService.currentProfile()
+      };
+
+      this.recipeLikeService.add(recipeLike);
+    }
   }
 }
