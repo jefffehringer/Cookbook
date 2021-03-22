@@ -24,14 +24,16 @@
         <ion-list>
           <ion-item *ngFor="let item of recipe.ingredients;let i=index;trackBy:trackByIndex;let isFirst=first;let isLast=last;">
             <ion-input placeholder="Ingredient" name="ing{{i}}" [(ngModel)]="recipe.ingredients[i]"></ion-input>
-            <ion-button icon-only color="light" item-right (click)="removeIngredient(i)">
-              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            <ion-button icon-only color="dark" fill="clear" item-right (click)="removeIngredient(i)">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
             </ion-button>
           </ion-item>
           <ion-item>
             <ion-input class="ion-margin-start" clear-input [(ngModel)]="newIngredient" type="text"
               placeholder="New Ingredient" (keyup.enter)="addIngredient()"></ion-input>
-            <ion-button (click)="addIngredient()">Add</ion-button>
+            <ion-button (click)="addIngredient()" fill="clear" color="medium">
+              <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+            </ion-button>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -47,15 +49,17 @@
             <ion-item *ngFor="let rec of recipe.steps;let i=index;trackBy:trackByIndex" class="ion-justify-content-center">
               <ion-textarea placeholder="Instruction" autoGrow="true" rows="1" name="dddd{{i}}" [(ngModel)]="recipe.steps[i]"></ion-textarea>
               <div class="d-flex ion-justify-content-center ion-align-items-center" slot="end">
-                <ion-button icon-only color="light" (click)="removeInstruction(i)">
-                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                <ion-button icon-only color="dark" fill="clear" (click)="removeInstruction(i)">
+                  <ion-icon slot="icon-only" name="close-outline"></ion-icon>
                 </ion-button>
               </div>
             </ion-item>
             <ion-item>
               <ion-input class="ion-margin-start" clear-input [(ngModel)]="newIngredient" type="text"
                 placeholder="New Instruction" (keyup.enter)="addInstruction()"></ion-input>
-              <ion-button (click)="addInstruction()">Add</ion-button>
+              <ion-button (click)="addInstruction()" fill="clear" color="medium">
+                <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+              </ion-button>
             </ion-item>
         </ion-list>
       </ion-col>
@@ -66,7 +70,9 @@
         <ion-item>
           <ion-input class="ion-margin-start" clear-input [(ngModel)]="newTag" type="text"
             placeholder="New Tag Name" (keyup.enter)="addTag()"></ion-input>
-          <ion-button (click)="addTag()">Add</ion-button>
+          <ion-button (click)="addTag()" fill="clear" color="medium">
+            <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+          </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
