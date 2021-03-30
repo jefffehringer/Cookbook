@@ -23,7 +23,7 @@
           <ion-label>
             <h2>{{recipe.createdBy.name}}</h2>
           </ion-label>
-          <ion-button fill="clear" slot="end" *ngIf="canEdit$ | async" routerLink="/recipes/{{recipe.id}}/edit">
+          <ion-button fill="clear" slot="end" *ngIf="canEdit$ | async" routerLink="/recipes/{{recipe._id}}/edit">
             <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
             Edit
           </ion-button>

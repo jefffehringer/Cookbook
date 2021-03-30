@@ -46,7 +46,7 @@ export class RecipeDetailPage implements OnInit {
     this.recipeId = this.route.snapshot.paramMap.get('id');
     this.recipeService.get(this.recipeId);
     this.commentService.load(`recipeId=${this.recipeId}`);
-    this.recipeLikeService.load(`recipeId=${this.recipeId}&user.userId=6Q0wBRDH1IeRZlECG66H0PPDXKD2`);
+    // this.recipeLikeService.load(`recipeId=${this.recipeId}&user.userId=6Q0wBRDH1IeRZlECG66H0PPDXKD2`);
     this.newComment = '';
   }
 

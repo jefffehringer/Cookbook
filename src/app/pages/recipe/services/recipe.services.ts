@@ -14,7 +14,7 @@ export class RecipeService extends StoreService<Recipe> {
     super(
       http,
       {
-        url: environment.apiUrl + 'recipes/',
+        url: 'http://localhost:3000/recipes/',
         idField: 'id',
         itemName: 'Recipe'
       }
@@ -22,7 +22,7 @@ export class RecipeService extends StoreService<Recipe> {
   }
 
   generate(): Recipe {
-    return {id: '', name: '', notes: '', author: '',
+    return {_id: '', name: '', notes: '', author: '',
       ingredients: [], steps: [], cooktime: '',
       tags: [], foodType: '', description: '',
       numberLikes: 0,

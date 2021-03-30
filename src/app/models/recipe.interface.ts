@@ -1,7 +1,7 @@
 import { UserProfile } from 'app/pages/profile/models/user-profile.interface';
 
 export interface Recipe {
-  id: string;
+  _id: string;
   name: string;
   author: string;
   notes: string;

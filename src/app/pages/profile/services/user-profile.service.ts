@@ -17,7 +17,7 @@ export class UserProfileService extends StoreService<UserProfile> {
     super(
       http,
       {
-        url: environment.apiUrl + 'userProfiles/',
+        url: environment.apiUrl + 'user-profiles/',
         idField: 'id',
         itemName: 'User Profile'
       }
@@ -45,7 +45,7 @@ export class UserProfileService extends StoreService<UserProfile> {
 
     this.loading = true;
 
-    this.http.getAll(`${this.settings.url}?uid=${authUser.uid}`)
+    this.http.getAll(`${this.settings.url}uid/${authUser.uid}`)
       .pipe(
         catchError(e => {
           this.getError = e;
