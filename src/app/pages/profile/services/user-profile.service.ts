@@ -41,8 +41,6 @@ export class UserProfileService extends StoreService<UserProfile> {
   }
 
   loadUser(authUser: firebase.User) {
-    console.log({loading: authUser});
-
     this.loading = true;
 
     this.http.getAll(`${this.settings.url}uid/${authUser.uid}`)

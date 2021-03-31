@@ -45,7 +45,7 @@ export class RecipeDetailPage implements OnInit {
   ionViewDidEnter() {
     this.recipeId = this.route.snapshot.paramMap.get('id');
     this.recipeService.get(this.recipeId);
-    this.commentService.load(`recipeId=${this.recipeId}`);
+    this.commentService.loadByRecipe(this.recipeId);
     // this.recipeLikeService.load(`recipeId=${this.recipeId}&user.userId=6Q0wBRDH1IeRZlECG66H0PPDXKD2`);
     this.newComment = '';
   }
@@ -60,8 +60,8 @@ export class RecipeDetailPage implements OnInit {
       id: null,
       recipeId: this.recipeId,
       content: this.newComment,
-      createdDate: new Date(),
-      createdBy: this.profileService.currentProfile()
+      createdDate: null,
+      createdBy: null
     };
 
     this.commentService.add(comment);

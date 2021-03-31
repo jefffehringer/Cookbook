@@ -15,8 +15,6 @@ export class AuthService {
   userData$ = this.fireAuth.authState
           .pipe(
             tap(u => {
-              console.log({tapped: u});
-
               if (u === null) {
                 this.router.navigate(['login']);
               } else if (!u.emailVerified) {
@@ -24,14 +22,12 @@ export class AuthService {
               }
 
               this.user = u;
-              this.token = u?.getIdToken();
+              this.setIdToken(this.user);
               this.userProfileService.loadUser(u);
             })
           );
 
   loggedIn$ = this.userData$.pipe(map(u => u !== null));
-
-  idToken: any;
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -42,7 +38,13 @@ export class AuthService {
     this.fireAuth.useDeviceLanguage();
 
     this.fireAuth.onIdTokenChanged(u => {
-      this.token = u?.getIdToken();
+      this.setIdToken(u);
+    });
+  }
+
+  private setIdToken(user: firebase.User) {
+    user?.getIdToken().then(val => {
+      this.token = val;
     });
   }
 
@@ -91,5 +93,9 @@ export class AuthService {
     return this.fireAuth.signOut().then(() => {
       this.router.navigate(['login']);
     });
+  }
+
+  getIdToken() {
+    return this.token;
   }
 }

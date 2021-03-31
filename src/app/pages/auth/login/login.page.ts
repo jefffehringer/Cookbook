@@ -16,8 +16,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.auth.loggedIn$.subscribe(l => {
-      console.log({logged: l});
-
       if (l) {
         this.router.navigate(['/']);
       }

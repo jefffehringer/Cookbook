@@ -50,8 +50,6 @@ export class RecipeEditFormComponent implements OnInit {
   }
 
   removeInstruction(idx: number) {
-    console.log({remove: idx});
-
     this.recipe.steps.splice(idx, 1);
   }
 
