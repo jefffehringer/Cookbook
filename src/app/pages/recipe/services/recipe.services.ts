@@ -15,7 +15,7 @@ export class RecipeService extends StoreService<Recipe> {
       http,
       {
         url: 'http://localhost:3000/recipes/',
-        idField: 'id',
+        idField: '_id',
         itemName: 'Recipe'
       }
     );
