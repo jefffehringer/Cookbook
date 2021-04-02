@@ -57,7 +57,7 @@ export class RecipeDetailPage implements OnInit {
   addComment() {
     // TODO Change how these are added (Even make the commenter a sub-component)
     const comment: Comment = {
-      id: null,
+      _id: null,
       recipeId: this.recipeId,
       content: this.newComment,
       createdDate: null,

@@ -17,7 +17,7 @@ export class CommentService extends StoreService<Comment> {
       http,
       {
         url: environment.apiUrl + 'comments/',
-        idField: 'id',
+        idField: '_id',
         itemName: 'Comment'
       }
     );

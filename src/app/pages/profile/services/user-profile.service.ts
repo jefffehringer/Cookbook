@@ -18,7 +18,7 @@ export class UserProfileService extends StoreService<UserProfile> {
       http,
       {
         url: environment.apiUrl + 'user-profiles/',
-        idField: 'id',
+        idField: '_id',
         itemName: 'User Profile'
       }
     );
