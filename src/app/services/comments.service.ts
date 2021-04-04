@@ -7,35 +7,31 @@ import { catchError, finalize } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentService extends StoreService<Comment> {
-  constructor(
-    protected http: HttpService<Comment>
-  ) {
-    super(
-      http,
-      {
-        url: environment.apiUrl + 'comments/',
-        idField: 'id',
-        itemName: 'Comment'
-      }
-    );
+  constructor(protected http: HttpService<Comment>) {
+    super(http, {
+      url: environment.apiUrl + 'comments/',
+      idField: '_id',
+      itemName: 'Comment',
+    });
   }
 
   loadByRecipe(recipeId: string) {
     this.loading = true;
-    const url = environment.apiUrl + 'recipes/' + recipeId + '/comments';
+    const url = this.settings.url + 'recipe/' + recipeId;
 
-    this.http.getAll(url)
+    this.http
+      .getAll(url)
       .pipe(
-        catchError(e => {
+        catchError((e) => {
           this.loadError = e;
           return throwError(`Error loading ${this.settings.itemName}s`);
         }),
-        finalize(() => this.loading = false)
+        finalize(() => (this.loading = false))
       )
-      .subscribe(d => {
+      .subscribe((d) => {
         this.items = d;
       });
   }

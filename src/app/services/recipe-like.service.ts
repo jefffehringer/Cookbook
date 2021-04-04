@@ -15,7 +15,7 @@ export class RecipeLikeService extends StoreService<RecipeLike> {
       http,
       {
         url: environment.apiUrl + 'recipeLikes/',
-        idField: 'id',
+        idField: '_id',
         itemName: 'RecipeLike'
       }
     );

@@ -15,19 +15,17 @@ import { RecipeService } from '../services/recipe.services';
   styleUrls: ['./recipe-detail.page.scss'],
 })
 export class RecipeDetailPage implements OnInit {
-  recipe$ = this.recipeService.selected$
-    .pipe(
-      tap(r => this.haveRecipeValue = r !== null)
-    );
+  recipe$ = this.recipeService.selected$.pipe(
+    tap((r) => (this.haveRecipeValue = r !== null))
+  );
   loading$ = this.recipeService.loading$;
   loadingComments$ = this.commentService.loading$;
   comments$ = this.commentService.items$;
   haveRecipeValue = false;
   liked$ = this.recipeLikeService.items$;
-  canEdit$ = combineLatest([this.recipe$, this.profileService.selected$])
-            .pipe(
-              map(([recipe, user]) => recipe.createdBy.id === user.id)
-            );
+  canEdit$ = combineLatest([this.recipe$, this.profileService.selected$]).pipe(
+    map(([recipe, user]) => recipe.createdBy.id === user.id)
+  );
   newComment = '';
   recipeId = '';
 
@@ -37,10 +35,9 @@ export class RecipeDetailPage implements OnInit {
     private route: ActivatedRoute,
     private profileService: UserProfileService,
     private recipeLikeService: RecipeLikeService
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ionViewDidEnter() {
     this.recipeId = this.route.snapshot.paramMap.get('id');
@@ -57,11 +54,11 @@ export class RecipeDetailPage implements OnInit {
   addComment() {
     // TODO Change how these are added (Even make the commenter a sub-component)
     const comment: Comment = {
-      id: null,
+      _id: null,
       recipeId: this.recipeId,
       content: this.newComment,
       createdDate: null,
-      createdBy: null
+      createdBy: null,
     };
 
     this.commentService.add(comment);
@@ -77,7 +74,7 @@ export class RecipeDetailPage implements OnInit {
         id: null,
         recipeId: this.recipeId,
         createdDate: new Date(),
-        user: this.profileService.currentProfile()
+        user: this.profileService.currentProfile(),
       };
 
       this.recipeLikeService.add(recipeLike);

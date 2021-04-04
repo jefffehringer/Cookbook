@@ -49,7 +49,7 @@
       "      http,",
       "      {",
       "        url: environment.apiUrl + '${1:namePath}s/',",
-      "        idField: 'id',",
+      "        idField: '_id',",
       "        itemName: '${2:ModelName}'",
       "      }",
       "    );",

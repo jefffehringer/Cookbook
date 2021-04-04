@@ -8,20 +8,15 @@ import { catchError, finalize } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserProfileService extends StoreService<UserProfile> {
-  constructor(
-    protected http: HttpService<UserProfile>
-  ) {
-    super(
-      http,
-      {
-        url: environment.apiUrl + 'user-profiles/',
-        idField: 'id',
-        itemName: 'User Profile'
-      }
-    );
+  constructor(protected http: HttpService<UserProfile>) {
+    super(http, {
+      url: environment.apiUrl + 'user-profiles/',
+      idField: '_id',
+      itemName: 'User Profile',
+    });
   }
 
   newUser(authUser: firebase.User) {
@@ -30,7 +25,7 @@ export class UserProfileService extends StoreService<UserProfile> {
       name: authUser.displayName,
       email: authUser.email,
       id: null,
-      location: ''
+      location: '',
     };
 
     this.add(newUser);
@@ -43,15 +38,16 @@ export class UserProfileService extends StoreService<UserProfile> {
   loadUser(authUser: firebase.User) {
     this.loading = true;
 
-    this.http.getAll(`${this.settings.url}uid/${authUser.uid}`)
+    this.http
+      .getAll(`${this.settings.url}uid/${authUser.uid}`)
       .pipe(
-        catchError(e => {
+        catchError((e) => {
           this.getError = e;
           return throwError(`Error loading ${this.settings.itemName}`);
         }),
-        finalize(() => this.loading = false)
+        finalize(() => (this.loading = false))
       )
-      .subscribe(d => {
+      .subscribe((d) => {
         if (d && d.length > 0) {
           this.selected = d[0];
         }

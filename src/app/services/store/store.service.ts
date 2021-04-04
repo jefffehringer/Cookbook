@@ -188,7 +188,9 @@ export class StoreService<T> {
       this.items[existingIndex] = item;
       this.items = this.items;
     } else {
-      this.items = [...this.items, item];
+      this.items.push(item);
+      this.items = this.items;
+      // this.items = this.items.pu [...this.items, item];
     }
   }
 }
