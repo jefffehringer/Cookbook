@@ -20,7 +20,7 @@ export class CommentService extends StoreService<Comment> {
 
   loadByRecipe(recipeId: string) {
     this.loading = true;
-    const url = this.settings.url + 'recipe/' + recipeId;
+    const url = environment.apiUrl + 'recipes/' + recipeId + '/comments';
 
     this.http
       .getAll(url)

@@ -7,8 +7,7 @@
       "user": {
         "uid": "3r8F1EsKvabbdPk8OsLm2FtUxgU2",
         "name": "Jeff Fehringer",
-        "email": "jeff.fehringer@gmail.com",
-        "id": 1
+        "_id": "605bfb4df05cee04f41bf7f5"
       }
     }
   ],
@@ -131,11 +130,7 @@
       "notes": "",
       "cooktime": "50 Minutes",
       "foodType": "Dinner",
-      "tags": [
-        "Pork",
-        "Test",
-        "Test 2"
-      ],
+      "tags": ["Pork", "Test", "Test 2"],
       "ingredients": [
         "1 can cream of chicken soup",
         "6 to 8 medium pork chops",
@@ -162,15 +157,8 @@
       "cooktime": "3",
       "foodType": "",
       "tags": [],
-      "ingredients": [
-        "Ing 1",
-        "Ing 2",
-        "Ing 3"
-      ],
-      "steps": [
-        "Pour salt",
-        "Throw salt"
-      ],
+      "ingredients": ["Ing 1", "Ing 2", "Ing 3"],
+      "steps": ["Pour salt", "Throw salt"],
       "numberLikes": 0
     },
     {
@@ -184,14 +172,8 @@
       "cooktime": "0 minutes",
       "foodType": "",
       "tags": [],
-      "ingredients": [
-        "Eggs",
-        "Fridge"
-      ],
-      "steps": [
-        "Leave eggs in fridge",
-        "Take out when ready to eat"
-      ],
+      "ingredients": ["Eggs", "Fridge"],
+      "steps": ["Leave eggs in fridge", "Take out when ready to eat"],
       "numberLikes": 0
     },
     {
@@ -203,14 +185,8 @@
       },
       "notes": "Test notes",
       "author": "",
-      "ingredients": [
-        "Ing 1",
-        "Ing 2"
-      ],
-      "steps": [
-        "Instr 1",
-        "Instr 2"
-      ],
+      "ingredients": ["Ing 1", "Ing 2"],
+      "steps": ["Instr 1", "Instr 2"],
       "cooktime": "5 minutes",
       "tags": [],
       "foodType": "Breakfast",
