@@ -5,34 +5,39 @@ import { HttpService } from '@cook/store/http.service';
 import { Recipe } from '@cook/models/recipe.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecipeService extends StoreService<Recipe> {
-  constructor(
-    protected http: HttpService<Recipe>
-  ) {
-    super(
-      http,
-      {
-        url: 'http://localhost:3000/recipes/',
-        idField: '_id',
-        itemName: 'Recipe'
-      }
-    );
+  constructor(protected http: HttpService<Recipe>) {
+    super(http, {
+      url: environment.apiUrl + 'recipes/',
+      idField: 'id',
+      itemName: 'Recipe',
+    });
   }
 
   generate(): Recipe {
-    return {_id: '', name: '', notes: '', author: '',
-      ingredients: [], steps: [], cooktime: '',
-      tags: [], foodType: '', description: '',
-      numberLikes: 0,
-      createdBy: {
+    return {
+      id: null,
+      name: '',
+      notes: '',
+      author: '',
+      ingredients: [],
+      instructions: [],
+      cooktime: '',
+      tags: [],
+      foodType: '',
+      description: '',
+      likeCount: 0,
+      commentCount: 0,
+      liked: false,
+      userProfile: {
         id: null,
         name: '',
         uid: null,
         email: '',
-        location: ''
-      }
+        location: '',
+      },
     };
   }
 }

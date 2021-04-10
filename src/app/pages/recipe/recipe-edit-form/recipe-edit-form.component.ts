@@ -13,9 +13,7 @@ export class RecipeEditFormComponent implements OnInit {
   newTag = '';
   newIngredient = '';
   newInstruction = '';
-  constructor(
-
-  ) { }
+  constructor() {}
 
   ngOnInit() {}
 
@@ -33,7 +31,7 @@ export class RecipeEditFormComponent implements OnInit {
 
   addInstruction() {
     if (this.newInstruction.length > 0) {
-      this.recipe.steps.push(this.newInstruction);
+      this.recipe.instructions.push(this.newInstruction);
       this.newInstruction = '';
     }
   }
@@ -50,7 +48,7 @@ export class RecipeEditFormComponent implements OnInit {
   }
 
   removeInstruction(idx: number) {
-    this.recipe.steps.splice(idx, 1);
+    this.recipe.instructions.splice(idx, 1);
   }
 
   goBack() {

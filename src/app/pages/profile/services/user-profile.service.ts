@@ -13,8 +13,8 @@ import { throwError } from 'rxjs';
 export class UserProfileService extends StoreService<UserProfile> {
   constructor(protected http: HttpService<UserProfile>) {
     super(http, {
-      url: environment.apiUrl + 'user-profiles/',
-      idField: '_id',
+      url: environment.apiUrl + 'userprofiles/',
+      idField: 'uid',
       itemName: 'User Profile',
     });
   }
@@ -35,7 +35,7 @@ export class UserProfileService extends StoreService<UserProfile> {
     return this.selected;
   }
 
-  loadUser(authUser: firebase.User) {
+  /*loadUser(authUser: firebase.User) {
     this.loading = true;
 
     this.http
@@ -52,5 +52,5 @@ export class UserProfileService extends StoreService<UserProfile> {
           this.selected = d[0];
         }
       });
-  }
+  }*/
 }

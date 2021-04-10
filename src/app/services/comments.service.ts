@@ -13,7 +13,7 @@ export class CommentService extends StoreService<Comment> {
   constructor(protected http: HttpService<Comment>) {
     super(http, {
       url: environment.apiUrl + 'comments/',
-      idField: '_id',
+      idField: 'id',
       itemName: 'Comment',
     });
   }

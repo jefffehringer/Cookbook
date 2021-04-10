@@ -24,7 +24,7 @@ export class RecipeDetailPage implements OnInit {
   haveRecipeValue = false;
   liked$ = this.recipeLikeService.items$;
   canEdit$ = combineLatest([this.recipe$, this.profileService.selected$]).pipe(
-    map(([recipe, user]) => recipe.createdBy.id === user.id)
+    map(([recipe, user]) => recipe.userProfile.id === user.id)
   );
   newComment = '';
   recipeId = '';
@@ -54,7 +54,7 @@ export class RecipeDetailPage implements OnInit {
   addComment() {
     // TODO Change how these are added (Even make the commenter a sub-component)
     const comment: Comment = {
-      _id: null,
+      id: null,
       recipeId: this.recipeId,
       content: this.newComment,
       createdDate: null,

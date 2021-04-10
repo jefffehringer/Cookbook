@@ -6,28 +6,27 @@ import firebase from 'firebase/app';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private user: firebase.User;
   private token: any;
 
-  userData$ = this.fireAuth.authState
-          .pipe(
-            tap(u => {
-              if (u === null) {
-                this.router.navigate(['login']);
-              } else if (!u.emailVerified) {
-                this.router.navigate(['email-verify']);
-              }
+  userData$ = this.fireAuth.authState.pipe(
+    tap((u) => {
+      if (u === null) {
+        this.router.navigate(['login']);
+      } else if (!u.emailVerified) {
+        this.router.navigate(['email-verify']);
+      }
 
-              this.user = u;
-              this.setIdToken(this.user);
-              this.userProfileService.loadUser(u);
-            })
-          );
+      this.user = u;
+      this.setIdToken(this.user);
+      this.userProfileService.get(u.uid);
+    })
+  );
 
-  loggedIn$ = this.userData$.pipe(map(u => u !== null));
+  loggedIn$ = this.userData$.pipe(map((u) => u !== null));
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -37,13 +36,13 @@ export class AuthService {
   ) {
     this.fireAuth.useDeviceLanguage();
 
-    this.fireAuth.onIdTokenChanged(u => {
+    this.fireAuth.onIdTokenChanged((u) => {
       this.setIdToken(u);
     });
   }
 
   private setIdToken(user: firebase.User) {
-    user?.getIdToken().then(val => {
+    user?.getIdToken().then((val) => {
       this.token = val;
     });
   }
@@ -74,18 +73,20 @@ export class AuthService {
 
   // Auth providers
   authLogin(provider) {
-    return this.fireAuth.signInWithPopup(provider)
-    .then((result) => {
-      this.ngZone.run(() => {
-        this.router.navigate(['/']);
-      });
+    return this.fireAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.ngZone.run(() => {
+          this.router.navigate(['/']);
+        });
 
-      if (result.additionalUserInfo?.isNewUser) {
-        this.userProfileService.newUser(result.user);
-      }
-    }).catch((error) => {
-      window.alert(error);
-    });
+        if (result.additionalUserInfo?.isNewUser) {
+          this.userProfileService.newUser(result.user);
+        }
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
   }
 
   // Sign-out

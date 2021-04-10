@@ -21,9 +21,9 @@
             <img src="https://picsum.photos/200?random=1987">
           </ion-avatar>
           <ion-label>
-            <h2>{{recipe.createdBy.name}}</h2>
+            <h2>{{recipe.userProfile.name}}</h2>
           </ion-label>
-          <ion-button fill="clear" slot="end" *ngIf="canEdit$ | async" routerLink="/recipes/{{recipe._id}}/edit">
+          <ion-button fill="clear" slot="end" *ngIf="canEdit$ | async" routerLink="/recipes/{{recipe.id}}/edit">
             <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
             Edit
           </ion-button>
@@ -49,7 +49,7 @@
           <ion-col>
             <ion-item lines="full">
               <ion-icon class="icon-less-margin" name="heart-outline" slot="start"></ion-icon>
-              <ion-label class="icon-less-margin">{{recipe.numberLikes}}</ion-label>
+              <ion-label class="icon-less-margin">{{recipe.likeCount}}</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -83,7 +83,7 @@
       <ion-col size="12">
         <h4>Instructions</h4>
         <ol class="ol-ul-list">
-          <li *ngFor="let step of recipe.steps">{{step}}</li>
+          <li *ngFor="let step of recipe.instructions">{{step}}</li>
         </ol>
       </ion-col>
     </ion-row>

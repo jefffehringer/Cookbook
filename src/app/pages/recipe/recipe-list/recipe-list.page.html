@@ -19,10 +19,10 @@
       <ion-col size="12" size-md="6" *ngFor="let recipe of recipes$ | async">
         <ion-card>
           <ion-card-header>
-            <ion-item detail="false" lines="none" routerLink="/recipes/{{recipe._id}}">
+            <ion-item detail="false" lines="none" routerLink="/recipes/{{recipe.id}}">
               <ion-label>
                 <h2>{{recipe.name}}</h2>
-                <p>{{recipe.createdBy?.name}}</p>
+                <p>{{recipe.userProfile.name}}</p>
               </ion-label>
             </ion-item>
           </ion-card-header>
