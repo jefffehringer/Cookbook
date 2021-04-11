@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { StoreService } from '@cook/store/store.service';
 import { HttpService } from '@cook/store/http.service';
 import { RecipeLike } from '@cook/models/recipe-like.interface';
+import { throwError } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

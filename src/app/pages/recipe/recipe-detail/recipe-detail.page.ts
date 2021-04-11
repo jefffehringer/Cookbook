@@ -22,12 +22,14 @@ export class RecipeDetailPage implements OnInit {
   loadingComments$ = this.commentService.loading$;
   comments$ = this.commentService.items$;
   haveRecipeValue = false;
-  liked$ = this.recipeLikeService.items$;
   canEdit$ = combineLatest([this.recipe$, this.profileService.selected$]).pipe(
-    map(([recipe, user]) => recipe.userProfile.id === user.id)
+    map(
+      ([recipe, user]) =>
+        recipe.userProfile.userProfileId === user.userProfileId
+    )
   );
   newComment = '';
-  recipeId = '';
+  recipeId = 0;
 
   constructor(
     private recipeService: RecipeService,
@@ -40,10 +42,9 @@ export class RecipeDetailPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    this.recipeId = this.route.snapshot.paramMap.get('id');
+    this.recipeId = +this.route.snapshot.paramMap.get('id');
     this.recipeService.get(this.recipeId);
     this.commentService.loadByRecipe(this.recipeId);
-    // this.recipeLikeService.load(`recipeId=${this.recipeId}&user.userId=6Q0wBRDH1IeRZlECG66H0PPDXKD2`);
     this.newComment = '';
   }
 
@@ -53,31 +54,16 @@ export class RecipeDetailPage implements OnInit {
 
   addComment() {
     // TODO Change how these are added (Even make the commenter a sub-component)
-    const comment: Comment = {
-      id: null,
-      recipeId: this.recipeId,
-      content: this.newComment,
-      createdDate: null,
-      createdBy: null,
-    };
-
-    this.commentService.add(comment);
+    this.commentService.addByRecipe(this.recipeId, this.newComment);
     this.newComment = '';
   }
 
-  like(alreadyLiked: RecipeLike) {
+  like(alreadyLiked: boolean, recipeId: number) {
     // TODO Improve this. Also need to update current recipe's liked total
     if (alreadyLiked) {
-      this.recipeLikeService.delete(alreadyLiked);
+      this.recipeService.unlike(recipeId);
     } else {
-      const recipeLike: RecipeLike = {
-        id: null,
-        recipeId: this.recipeId,
-        createdDate: new Date(),
-        user: this.profileService.currentProfile(),
-      };
-
-      this.recipeLikeService.add(recipeLike);
+      this.recipeService.like(recipeId);
     }
   }
 }

@@ -56,8 +56,8 @@
         <ion-row>
           <ion-col>
             <ion-item lines="full">
-              <ion-button fill="clear" (click)="like(liked?.length > 0 ? liked[0] : null)" *ngIf="liked$ | async as liked">
-                <ion-icon slot="icon-only" [name]="liked?.length > 0 ? 'heart' : 'heart-outline'" [color]="liked?.length > 0 ? 'primary' : 'dark'"></ion-icon>
+              <ion-button fill="clear" (click)="like(recipe.liked, recipe.id)">
+                <ion-icon slot="icon-only" [name]="recipe.liked ? 'heart' : 'heart-outline'" [color]="recipe.liked ? 'primary' : 'dark'"></ion-icon>
               </ion-button>
             </ion-item>
           </ion-col>
@@ -105,7 +105,7 @@
             <img src="https://picsum.photos/200?random={{i}}">
           </ion-avatar>
           <ion-label>
-            <h2>{{comment.createdBy.name}}</h2>
+            <h2>{{comment.userProfile.name}}</h2>
             <p class="ion-text-wrap">{{comment.content}}</p>
           </ion-label>
         </ion-item>

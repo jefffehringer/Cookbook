@@ -21,10 +21,9 @@ export class UserProfileService extends StoreService<UserProfile> {
 
   newUser(authUser: firebase.User) {
     const newUser: UserProfile = {
-      uid: authUser.uid,
+      userProfileId: authUser.uid,
       name: authUser.displayName,
       email: authUser.email,
-      id: null,
       location: '',
     };
 

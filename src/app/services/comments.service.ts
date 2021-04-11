@@ -18,7 +18,7 @@ export class CommentService extends StoreService<Comment> {
     });
   }
 
-  loadByRecipe(recipeId: string) {
+  loadByRecipe(recipeId: number) {
     this.loading = true;
     const url = environment.apiUrl + 'recipes/' + recipeId + '/comments';
 
@@ -33,6 +33,26 @@ export class CommentService extends StoreService<Comment> {
       )
       .subscribe((d) => {
         this.items = d;
+      });
+  }
+
+  addByRecipe(recipeId: number, content: string) {
+    this.loading = true;
+
+    const url = environment.apiUrl + 'recipes/' + recipeId + '/comments';
+
+    this.http
+      .post(url, { content })
+      .pipe(
+        catchError((e) => {
+          this.getError = e;
+          return throwError(`Error creating ${this.settings.itemName}`);
+        }),
+        finalize(() => (this.loading = false))
+      )
+      .subscribe((d) => {
+        this.replaceOrAdd(d);
+        this.createSuccessSubject.next(d);
       });
   }
 }

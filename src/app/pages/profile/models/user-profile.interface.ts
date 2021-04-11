@@ -1,7 +1,6 @@
 export interface UserProfile {
-  id: string;
   name: string;
-  uid: string;
+  userProfileId: string;
   email: string;
   location: string;
 }

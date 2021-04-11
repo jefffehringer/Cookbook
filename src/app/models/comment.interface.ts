@@ -1,9 +1,9 @@
 import { UserProfile } from 'app/pages/profile/models/user-profile.interface';
 
 export interface Comment {
-  id: string;
-  recipeId: string;
+  id: number;
+  recipeId: number;
   content: string;
   createdDate: Date;
-  createdBy: UserProfile;
+  userProfile: UserProfile;
 }

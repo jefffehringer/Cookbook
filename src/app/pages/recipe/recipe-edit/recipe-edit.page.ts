@@ -17,17 +17,15 @@ export class RecipeEditPage implements OnInit {
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private location: Location
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ionViewDidEnter() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = +this.route.snapshot.paramMap.get('id');
     this.recipeService.get(id);
 
-    this.recipeService.updateSuccess$
-      .subscribe(a => this.goBack());
+    this.recipeService.updateSuccess$.subscribe((a) => this.goBack());
   }
 
   ionViewDidLeave() {

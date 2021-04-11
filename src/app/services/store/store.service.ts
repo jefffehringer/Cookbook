@@ -5,7 +5,7 @@ import { catchError, delay, finalize } from 'rxjs/operators';
 import { StoreSettings } from './models/store-settings.model';
 import { HttpService } from './http.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class StoreService<T> {
   //#region Subjects, Objservables, Getter/Setters
   private itemsSubject = new BehaviorSubject<T[]>([]);
@@ -25,7 +25,7 @@ export class StoreService<T> {
     return this.selectedSubject.getValue();
   }
   protected set selected(val: T) {
-    this.selectedSubject.next(val == null ? null : {...val});
+    this.selectedSubject.next(val == null ? null : { ...val });
   }
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -62,20 +62,20 @@ export class StoreService<T> {
     this.deletingSubject.next(val);
   }
 
-  private deleteSuccessSubject = new Subject<T>();
+  protected deleteSuccessSubject = new Subject<T>();
   deleteSuccess$ = this.deleteSuccessSubject.asObservable();
 
-  private updateSuccessSubject = new Subject<T>();
+  protected updateSuccessSubject = new Subject<T>();
   updateSuccess$ = this.updateSuccessSubject.asObservable();
 
-  private createSuccessSubject = new Subject<T>();
+  protected createSuccessSubject = new Subject<T>();
   createSuccess$ = this.createSuccessSubject.asObservable();
   //#endregion
 
   constructor(
     protected http: HttpService<T>,
     protected settings: StoreSettings
-  ) { }
+  ) {}
 
   load(filter = '', order = '', useCache = false) {
     if (useCache && this.items?.length > 0) {
@@ -85,20 +85,21 @@ export class StoreService<T> {
     let url = this.settings.url;
     url += filter.length > 0 ? `?${filter}` : '';
 
-    this.http.getAll(url)
+    this.http
+      .getAll(url)
       .pipe(
-        catchError(e => {
+        catchError((e) => {
           this.loadError = e;
           return throwError(`Error loading ${this.settings.itemName}s`);
         }),
-        finalize(() => this.loading = false)
+        finalize(() => (this.loading = false))
       )
-      .subscribe(d => {
+      .subscribe((d) => {
         this.items = d;
       });
   }
 
-  get(id: string) {
+  get(id: string | number) {
     if (id === null) {
       this.selected = null;
       return;
@@ -106,15 +107,16 @@ export class StoreService<T> {
 
     this.loading = true;
 
-    this.http.get(`${this.settings.url}${id}`)
+    this.http
+      .get(`${this.settings.url}${id}`)
       .pipe(
-        catchError(e => {
+        catchError((e) => {
           this.getError = e;
           return throwError(`Error loading ${this.settings.itemName}`);
         }),
-        finalize(() => this.loading = false)
+        finalize(() => (this.loading = false))
       )
-      .subscribe(d => {
+      .subscribe((d) => {
         this.replaceOrAdd(d);
         this.selected = d;
       });
@@ -123,15 +125,16 @@ export class StoreService<T> {
   add(val: T) {
     this.loading = true;
 
-    this.http.post(`${this.settings.url}`, val)
+    this.http
+      .post(`${this.settings.url}`, val)
       .pipe(
-        catchError(e => {
+        catchError((e) => {
           this.getError = e;
           return throwError(`Error creating ${this.settings.itemName}`);
         }),
-        finalize(() => this.loading = false)
+        finalize(() => (this.loading = false))
       )
-      .subscribe(d => {
+      .subscribe((d) => {
         this.replaceOrAdd(d);
         this.createSuccessSubject.next(d);
       });
@@ -141,15 +144,16 @@ export class StoreService<T> {
     this.loading = true;
     const id = val[this.settings.idField];
 
-    this.http.put(`${this.settings.url}${id}`, val)
+    this.http
+      .put(`${this.settings.url}${id}`, val)
       .pipe(
-        catchError(e => {
+        catchError((e) => {
           this.getError = e;
           return throwError(`Error updating ${this.settings.itemName}`);
         }),
-        finalize(() => this.loading = false)
+        finalize(() => (this.loading = false))
       )
-      .subscribe(d => {
+      .subscribe((d) => {
         this.replaceOrAdd(d);
         this.updateSuccessSubject.next(d);
       });
@@ -159,13 +163,14 @@ export class StoreService<T> {
     this.deleting = true;
     const id = val[this.settings.idField];
 
-    this.http.delete(`${this.settings.url}${id}`)
+    this.http
+      .delete(`${this.settings.url}${id}`)
       .pipe(
-        catchError(e => {
+        catchError((e) => {
           this.getError = e;
           return throwError(`Error deleting ${this.settings.itemName}`);
         }),
-        finalize(() => this.deleting = false)
+        finalize(() => (this.deleting = false))
       )
       .subscribe((d) => {
         this.remove(val);
@@ -177,12 +182,20 @@ export class StoreService<T> {
     this.selected = val;
   }
 
-  private remove(val: T) {
-    this.items = this.items.filter(i => i[this.settings.idField] !== val[this.settings.idField]);
+  getCached(id: string | number) {
+    return this.items.find((i) => i[this.settings.idField] === id);
   }
 
-  private replaceOrAdd(item: T) {
-    const existingIndex = this.items?.findIndex(i => i[this.settings.idField] === item[this.settings.idField]);
+  protected remove(val: T) {
+    this.items = this.items.filter(
+      (i) => i[this.settings.idField] !== val[this.settings.idField]
+    );
+  }
+
+  protected replaceOrAdd(item: T) {
+    const existingIndex = this.items?.findIndex(
+      (i) => i[this.settings.idField] === item[this.settings.idField]
+    );
 
     if (existingIndex >= 0) {
       this.items[existingIndex] = item;
