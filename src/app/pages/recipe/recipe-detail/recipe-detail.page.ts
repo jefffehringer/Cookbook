@@ -6,7 +6,7 @@ import { UserProfileService } from 'app/pages/profile/services/user-profile.serv
 import { CommentService } from 'app/services/comments.service';
 import { RecipeLikeService } from 'app/services/recipe-like.service';
 import { combineLatest } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { RecipeService } from '../services/recipe.services';
 
 @Component({
@@ -23,6 +23,7 @@ export class RecipeDetailPage implements OnInit {
   comments$ = this.commentService.items$;
   haveRecipeValue = false;
   canEdit$ = combineLatest([this.recipe$, this.profileService.selected$]).pipe(
+    filter(([recipe, user]) => recipe !== null && user !== null),
     map(
       ([recipe, user]) =>
         recipe.userProfile.userProfileId === user.userProfileId
