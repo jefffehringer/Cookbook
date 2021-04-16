@@ -9,6 +9,7 @@ import { Recipe } from '@cook/models/recipe.interface';
 export class RecipeEditFormComponent implements OnInit {
   @Input() recipe: Recipe;
   @Output() saved = new EventEmitter<Recipe>();
+  @Output() tagAdded = new EventEmitter<string>();
   @Output() navigateBack = new EventEmitter<void>();
   newTag = '';
   newIngredient = '';
@@ -57,7 +58,7 @@ export class RecipeEditFormComponent implements OnInit {
 
   addTag() {
     if (this.newTag.length > 0) {
-      this.recipe.tags.push(this.newTag);
+      this.tagAdded.emit(this.newTag);
       this.newTag = '';
     }
   }

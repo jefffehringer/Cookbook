@@ -1,4 +1,5 @@
 import { UserProfile } from 'app/pages/profile/models/user-profile.interface';
+import { Tag } from './tag.interface';
 
 export interface Recipe {
   id: number;
@@ -8,7 +9,7 @@ export interface Recipe {
   cooktime: string;
   ingredients: string[];
   instructions: string[];
-  tags: string[];
+  tags: Tag[];
   foodType: string;
   description: string;
   userProfile: UserProfile;

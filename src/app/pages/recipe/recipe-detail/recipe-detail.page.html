@@ -89,7 +89,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button size="small" color="light" *ngFor="let tag of recipe.tags">{{tag}}</ion-button>
+        <ion-button size="small" color="light" *ngFor="let tag of recipe.tags">{{tag.name}}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="recipe.notes?.length > 0">

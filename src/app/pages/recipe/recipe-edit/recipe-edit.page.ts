@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 export class RecipeEditPage implements OnInit {
   recipe$ = this.recipeService.selected$;
   loading$ = this.recipeService.loading$;
+  recipeId = 0;
 
   constructor(
     private recipeService: RecipeService,
@@ -22,8 +23,8 @@ export class RecipeEditPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.recipeService.get(id);
+    this.recipeId = +this.route.snapshot.paramMap.get('id');
+    this.recipeService.get(this.recipeId);
 
     this.recipeService.updateSuccess$.subscribe((a) => this.goBack());
   }
@@ -38,5 +39,9 @@ export class RecipeEditPage implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  addTag(tag: string) {
+    this.recipeService.addTag(this.recipeId, tag);
   }
 }
