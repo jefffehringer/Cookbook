@@ -1,0 +1,16 @@
+<div>
+  <ion-item>
+    <ion-input class="ion-margin-start" clear-input [(ngModel)]="newTag" type="text" (ionChange)="searchTag($event)"
+      debounce="100" placeholder="New Tag Name" (keyup.enter)="addTag()"></ion-input>
+    <ion-button (click)="addTag()" fill="clear" color="medium">
+      <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-card *ngIf="showSearch" class="tag-results">
+    <ion-list>
+      <ion-item button *ngFor="let tag of searchResults$ | async" (click)="tagSelected(tag)">
+        {{tag.name}}
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</div>

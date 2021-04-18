@@ -68,6 +68,12 @@ export class RecipeService extends StoreService<Recipe> {
       .subscribe((d) => {});
   }
 
+  addTagToSelected(tag: Tag) {
+    if (this.selected) {
+      this.selected.tags.push(tag);
+    }
+  }
+
   addTag(recipeId: number, tagName: string) {
     const exist = this.getCached(recipeId);
 

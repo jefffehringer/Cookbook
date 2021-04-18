@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../services/recipe.services';
 import { Location } from '@angular/common';
 import { Recipe } from '@cook/models/recipe.interface';
+import { TagService } from 'app/services/tag.service';
 
 @Component({
   selector: 'app-recipe-create',

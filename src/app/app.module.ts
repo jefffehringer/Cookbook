@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '@cook/environment/environment';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    SharedModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [

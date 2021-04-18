@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RecipeEditFormComponent } from 'app/pages/recipe/recipe-edit-form/recipe-edit-form.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'app/shared/shared.module';
 
 const comps = [RecipeEditFormComponent];
 
@@ -11,7 +12,8 @@ const comps = [RecipeEditFormComponent];
   imports: [
     CommonModule,
     IonicModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   exports: [comps]
 })

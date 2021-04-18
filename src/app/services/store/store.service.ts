@@ -15,7 +15,7 @@ export class StoreService<T> {
     return this.itemsSubject.getValue();
   }
   protected set items(val: T[]) {
-    this.itemsSubject.next([...val]);
+    this.itemsSubject.next(val ? [...val] : []);
   }
 
   private selectedSubject = new BehaviorSubject<T>(null);
@@ -182,8 +182,16 @@ export class StoreService<T> {
     this.selected = val;
   }
 
-  getCached(id: string | number) {
+  getCached(id: string | number): T {
     return this.items.find((i) => i[this.settings.idField] === id);
+  }
+
+  findCached(predicate: (item: T) => boolean): T {
+    return this.items.find(i => predicate(i));
+  }
+
+  clearCached() {
+    this.items = [];
   }
 
   protected remove(val: T) {
