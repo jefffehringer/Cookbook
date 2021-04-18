@@ -70,6 +70,9 @@ export class StoreService<T> {
 
   protected createSuccessSubject = new Subject<T>();
   createSuccess$ = this.createSuccessSubject.asObservable();
+
+  private noLoadResultsSubject = new Subject<void>();
+  noLoadResults$ = this.noLoadResultsSubject.asObservable();
   //#endregion
 
   constructor(
@@ -77,13 +80,13 @@ export class StoreService<T> {
     protected settings: StoreSettings
   ) {}
 
-  load(filter = '', order = '', useCache = false) {
+  load(filter = '', order = '', page = 0, pageSize = 0, useCache = false, append = false) {
     if (useCache && this.items?.length > 0) {
       return;
     }
     this.loading = true;
     let url = this.settings.url;
-    url += filter.length > 0 ? `?${filter}` : '';
+    url += this.buildUrl(filter, order, page, pageSize);
 
     this.http
       .getAll(url)
@@ -95,7 +98,15 @@ export class StoreService<T> {
         finalize(() => (this.loading = false))
       )
       .subscribe((d) => {
-        this.items = d;
+        if (append) {
+          this.items = this.items.concat(d);
+        } else {
+          this.items = d;
+        }
+
+        if (d.length === 0) {
+          this.noLoadResultsSubject.next();
+        }
       });
   }
 
@@ -213,5 +224,9 @@ export class StoreService<T> {
       this.items = this.items;
       // this.items = this.items.pu [...this.items, item];
     }
+  }
+
+  protected buildUrl(filter = '', order = '', page = 0, pageSize = 0) {
+    return `?filter=${filter}&order=${order}&page=${page}&pageSize=${pageSize}`;
   }
 }

@@ -6,10 +6,41 @@
           <ion-list-header>Cookbook</ion-list-header>
           <ion-note>{{profile.name}}</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/recipes']" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="pizza-outline"></ion-icon>
+              <ion-label>Recipes</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/tags']" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="pricetags-outline"></ion-icon>
+              <ion-label>Tags</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/cookbooks']" lines="none" detail="false"
+              routerLinkActive="selected">
+              <ion-icon slot="start" name="book-outline"></ion-icon>
+              <ion-label>Cookbooks</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/dinner']" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="shuffle-outline"></ion-icon>
+              <ion-label>Whats for Dinner?</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/search']" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="search-outline"></ion-icon>
+              <ion-label>Search</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['/profile']" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="person-outline"></ion-icon>
+              <ion-label>Profile</ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">

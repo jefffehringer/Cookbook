@@ -10,14 +10,7 @@ import { AuthService } from './services/security/auth.service';
 export class AppComponent {
   profile$ = this.profileService.selected$;
   showRightPane = false;
-  public appPages = [
-    { title: 'Recipes', url: '/recipes', icon: 'pizza' },
-    { title: 'Tags', url: '/folder/Tags', icon: 'pricetags' },
-    { title: 'Cookbooks', url: '/folder/Cookbooks', icon: 'book' },
-    { title: 'Whats for Dinner?', url: '/folder/Dinner', icon: 'shuffle' },
-    { title: 'Register', url: '/register', icon: 'newspaper' },
-    { title: 'Login', url: '/login', icon: 'log-in' }
-  ];
+
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(
     private platform: Platform,

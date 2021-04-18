@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LikeClickEvent } from '@cook/models/like-click-event.interface';
+import { IonInfiniteScroll } from '@ionic/angular';
+import { tap } from 'rxjs/operators';
 import { RecipeService } from '../services/recipe.services';
 
 @Component({
@@ -8,8 +10,14 @@ import { RecipeService } from '../services/recipe.services';
   styleUrls: ['./recipe-list.page.scss'],
 })
 export class RecipeListPage implements OnInit {
-  recipes$ = this.recipeService.items$;
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
+  recipes$ = this.recipeService.items$.pipe(tap(() => this.dataLoaded()));
   showHeader = true;
+  currentPage = 1;
+  pageSize = 2;
+  lastInfiniteEventTarget: any;
+  noMoreData = false;
 
   constructor(
     private recipeService: RecipeService
@@ -19,7 +27,12 @@ export class RecipeListPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.recipeService.load();
+    this.recipeService.load('', '', this.currentPage, this.pageSize);
+
+    this.recipeService.noLoadResults$.subscribe(() => {
+      this.infiniteScroll.disabled = true;
+      this.noMoreData = true;
+    });
   }
 
   like(likeEvent: LikeClickEvent) {
@@ -27,6 +40,19 @@ export class RecipeListPage implements OnInit {
       this.recipeService.unlike(likeEvent.recipeId);
     } else {
       this.recipeService.like(likeEvent.recipeId);
+    }
+  }
+
+  loadData(event) {
+    this.lastInfiniteEventTarget = event.target;
+
+    this.currentPage++;
+    this.recipeService.load('', '', this.currentPage, this.pageSize, false, true);
+  }
+
+  dataLoaded() {
+    if (this.lastInfiniteEventTarget) {
+      this.lastInfiniteEventTarget.complete();
     }
   }
 }
