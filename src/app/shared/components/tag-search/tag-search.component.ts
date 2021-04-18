@@ -22,7 +22,6 @@ export class TagSearchComponent implements OnInit {
       this.tagService.pickTag(exist);
     } else {
       this.tagService.add({ id: -1, name: this.newTag });
-      this.tagService.pickTag({ id: -1, name: this.newTag });
     }
 
     this.clearSearch();

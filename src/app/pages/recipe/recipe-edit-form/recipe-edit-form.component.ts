@@ -11,7 +11,8 @@ import { TagService } from 'app/services/tag.service';
 export class RecipeEditFormComponent implements OnInit {
   @Input() recipe: Recipe;
   @Output() saved = new EventEmitter<Recipe>();
-  @Output() tagAdded = new EventEmitter<string>();
+  /** This will only emit when editing a recipe and it needs added to the recipe */
+  @Output() tagAdded = new EventEmitter<Tag>();
   @Output() navigateBack = new EventEmitter<void>();
   searchResults$ = this.tagService.items$;
   newTag = '';
@@ -25,7 +26,9 @@ export class RecipeEditFormComponent implements OnInit {
   ngOnInit() {
     // TODO: These might cause problems since this is a sub-component it might not init/destroy every time
     this.tagService.tagPicked$.subscribe(t => {
-      this.recipe.tags.push(t);
+      // If it's a new recipe, just add it to the tags array.
+      // If not, emit so the parent can add it
+      this.pushOrEmit(t);
     });
 
     this.tagService.createSuccess$.subscribe(t => {
@@ -33,7 +36,17 @@ export class RecipeEditFormComponent implements OnInit {
       if (exist && exist.id === -1) {
         exist.id = t.id;
       }
+
+      this.pushOrEmit(t);
     });
+  }
+
+  private pushOrEmit(tag: Tag) {
+    if (this.recipe.id < 0) {
+      this.recipe.tags.push(tag);
+    } else {
+      this.tagAdded.emit(tag);
+    }
   }
 
   trackByIndex(index, item) {

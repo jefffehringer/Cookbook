@@ -74,15 +74,15 @@ export class RecipeService extends StoreService<Recipe> {
     }
   }
 
-  addTag(recipeId: number, tagName: string) {
+  addTag(recipeId: number, tag: Tag) {
     const exist = this.getCached(recipeId);
 
-    if (exist.tags.findIndex(i => i.name === tagName) < 0) {
-      exist.tags.push({ name: tagName, id: -1 });
+    if (exist.tags.findIndex(i => i.name === tag.name) < 0) {
+      exist.tags.push({ name: tag.name, id: -1 });
     }
 
     this.httpClient
-      .post<Tag>(this.settings.url + recipeId + '/tag', { name: tagName })
+      .post<Tag>(this.settings.url + recipeId + '/tag', tag)
       .pipe(
         catchError((e) => {
           this.getError = e;
@@ -92,7 +92,7 @@ export class RecipeService extends StoreService<Recipe> {
       )
       .subscribe((d) => {
         if (exist) {
-          const idx = exist.tags.findIndex(i => i.name === tagName);
+          const idx = exist.tags.findIndex(i => i.name === tag.name);
 
           if (idx >= 0) {
             exist.tags[idx] = d;

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../services/recipe.services';
 import { Recipe } from '@cook/models/recipe.interface';
 import { Location } from '@angular/common';
+import { Tag } from '@cook/models/tag.interface';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -41,7 +42,7 @@ export class RecipeEditPage implements OnInit {
     this.location.back();
   }
 
-  addTag(tag: string) {
+  addTag(tag: Tag) {
     this.recipeService.addTag(this.recipeId, tag);
   }
 }
