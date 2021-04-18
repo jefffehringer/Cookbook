@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { RecipeCreatePageRoutingModule } from './recipe-create-routing.module';
 
 import { RecipeCreatePage } from './recipe-create.page';
-import { ComponentModule } from 'app/modules/component.module';
+import { SharedModule } from 'app/shared/shared.module';
+
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ComponentModule } from 'app/modules/component.module';
     FormsModule,
     IonicModule,
     RecipeCreatePageRoutingModule,
-    ComponentModule
+    SharedModule
   ],
   declarations: [RecipeCreatePage]
 })

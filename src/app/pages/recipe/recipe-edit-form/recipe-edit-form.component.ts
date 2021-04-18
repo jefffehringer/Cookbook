@@ -41,14 +41,6 @@ export class RecipeEditFormComponent implements OnInit {
     });
   }
 
-  private pushOrEmit(tag: Tag) {
-    if (this.recipe.id < 0) {
-      this.recipe.tags.push(tag);
-    } else {
-      this.tagAdded.emit(tag);
-    }
-  }
-
   trackByIndex(index, item) {
     return index;
   }
@@ -85,5 +77,13 @@ export class RecipeEditFormComponent implements OnInit {
 
   goBack() {
     this.navigateBack.emit();
+  }
+
+  private pushOrEmit(tag: Tag) {
+    if (this.recipe.id < 0) {
+      this.recipe.tags.push(tag);
+    } else {
+      this.tagAdded.emit(tag);
+    }
   }
 }

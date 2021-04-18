@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LikeClickEvent } from '@cook/models/like-click-event.interface';
 import { RecipeService } from '../services/recipe.services';
 
 @Component({
@@ -21,15 +22,11 @@ export class RecipeListPage implements OnInit {
     this.recipeService.load();
   }
 
-  like(alreadyLiked: boolean, recipeId: number, event) {
-    // TODO Improve this. Also need to update current recipe's liked total
-    if (alreadyLiked) {
-      this.recipeService.unlike(recipeId);
+  like(likeEvent: LikeClickEvent) {
+    if (likeEvent.alreadyLiked) {
+      this.recipeService.unlike(likeEvent.recipeId);
     } else {
-      this.recipeService.like(recipeId);
+      this.recipeService.like(likeEvent.recipeId);
     }
-
-    event.stopPropagation();
-    return false;
   }
 }

@@ -17,63 +17,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="12" *ngFor="let recipe of recipes$ | async">
-        <ion-card routerLink="/recipes/{{recipe.id}}">
-          <ion-card-header>
-            <ion-item lines="none">
-              <ion-avatar slot="start">
-                <img src="https://picsum.photos/200?random=1987">
-              </ion-avatar>
-              <ion-label>
-                <h1>{{recipe.name}}</h1>
-                <p>{{recipe.userProfile.name}}</p>
-              </ion-label>
-            </ion-item>
-          </ion-card-header>
-
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  {{recipe.description}}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-img class="w-100" src="https://picsum.photos/600/300?random={{recipe.id}}"></ion-img>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-icon class="icon-less-margin" name="timer-outline" slot="start"></ion-icon>
-                <ion-label class="icon-less-margin">{{recipe.cooktime}}</ion-label>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-icon class="icon-less-margin" name="pizza-outline" slot="start"></ion-icon>
-                <ion-label class="icon-less-margin">{{recipe.foodType}}</ion-label>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-icon class="icon-less-margin" name="chatbubble-outline" slot="start"></ion-icon>
-                <ion-label class="icon-less-margin">{{recipe.commentCount}}</ion-label>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="none">
-                <ion-button class="icon-less-margin" fill="clear" (click)="like(recipe.liked, recipe.id, $event)">
-                  <ion-icon slot="icon-only" [name]="recipe.liked ? 'heart' : 'heart-outline'"
-                    [color]="recipe.liked ? 'primary' : 'dark'"></ion-icon>
-                </ion-button>
-                <ion-label class="icon-less-margin">{{recipe.likeCount}}</ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-card>
+        <app-recipe-view-card [recipe]="recipe" (liked)="like($event)"></app-recipe-view-card>
       </ion-col>
     </ion-row>
   </ion-grid>

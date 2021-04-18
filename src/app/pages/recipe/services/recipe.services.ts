@@ -12,7 +12,7 @@ import { Tag } from '@cook/models/tag.interface';
   providedIn: 'root',
 })
 export class RecipeService extends StoreService<Recipe> {
-  protected addTagSuccessSubject = new Subject<Tag>();
+  private addTagSuccessSubject = new Subject<Tag>();
   addTagSuccess$ = this.addTagSuccessSubject.asObservable();
 
   constructor(
