@@ -1,12 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 import { catchError, delay, finalize } from 'rxjs/operators';
 import { StoreSettings } from './models/store-settings.model';
-import { HttpService } from './http.service';
 
 @Injectable({ providedIn: 'root' })
-export class StoreService<T> {
+export abstract class StoreService<T> {
   //#region Subjects, Objservables, Getter/Setters
   private itemsSubject = new BehaviorSubject<T[]>([]);
   items$ = this.itemsSubject.asObservable();
@@ -76,7 +75,7 @@ export class StoreService<T> {
   //#endregion
 
   constructor(
-    protected http: HttpService<T>,
+    protected http: HttpClient,
     protected settings: StoreSettings
   ) {}
 
@@ -89,7 +88,7 @@ export class StoreService<T> {
     url += this.buildUrl(filter, order, page, pageSize);
 
     this.http
-      .getAll(url)
+      .get<T[]>(url)
       .pipe(
         catchError((e) => {
           this.loadError = e;
@@ -119,7 +118,7 @@ export class StoreService<T> {
     this.loading = true;
 
     this.http
-      .get(`${this.settings.url}${id}`)
+      .get<T>(`${this.settings.url}${id}`)
       .pipe(
         catchError((e) => {
           this.getError = e;
@@ -137,7 +136,7 @@ export class StoreService<T> {
     this.loading = true;
 
     this.http
-      .post(`${this.settings.url}`, val)
+      .post<T>(`${this.settings.url}`, val)
       .pipe(
         catchError((e) => {
           this.getError = e;
@@ -156,7 +155,7 @@ export class StoreService<T> {
     const id = val[this.settings.idField];
 
     this.http
-      .put(`${this.settings.url}${id}`, val)
+      .put<T>(`${this.settings.url}${id}`, val)
       .pipe(
         catchError((e) => {
           this.getError = e;

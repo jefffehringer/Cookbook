@@ -1,7 +1,6 @@
 import { environment } from '@cook/environment/environment';
 import { Injectable } from '@angular/core';
 import { StoreService } from '@cook/store/store.service';
-import { HttpService } from '@cook/store/http.service';
 import { Recipe } from '@cook/models/recipe.interface';
 import { Subject, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
@@ -16,7 +15,7 @@ export class RecipeService extends StoreService<Recipe> {
   addTagSuccess$ = this.addTagSuccessSubject.asObservable();
 
   constructor(
-    protected http: HttpService<Recipe>, private httpClient: HttpClient
+    protected http: HttpClient
   ) {
     super(http, {
       url: environment.apiUrl + 'recipes/',
@@ -81,7 +80,7 @@ export class RecipeService extends StoreService<Recipe> {
       exist.tags.push({ name: tag.name, id: -1 });
     }
 
-    this.httpClient
+    this.http
       .post<Tag>(this.settings.url + recipeId + '/tag', tag)
       .pipe(
         catchError((e) => {

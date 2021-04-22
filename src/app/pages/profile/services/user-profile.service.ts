@@ -1,18 +1,17 @@
 import { environment } from '@cook/environment/environment';
 import { Injectable } from '@angular/core';
 import { StoreService } from '@cook/store/store.service';
-import { HttpService } from '@cook/store/http.service';
 import { UserProfile } from '../models/user-profile.interface';
 import firebase from 'firebase/app';
-import { catchError, finalize } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProfileService extends StoreService<UserProfile> {
-  constructor(protected http: HttpService<UserProfile>) {
-    super(http, {
+  constructor(protected http: HttpClient) {
+    super(http,
+      {
       url: environment.apiUrl + 'userprofiles/',
       idField: 'uid',
       itemName: 'User Profile',

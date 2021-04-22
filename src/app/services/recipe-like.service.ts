@@ -1,16 +1,14 @@
 import { environment } from '@cook/environment/environment';
 import { Injectable } from '@angular/core';
 import { StoreService } from '@cook/store/store.service';
-import { HttpService } from '@cook/store/http.service';
 import { RecipeLike } from '@cook/models/recipe-like.interface';
-import { throwError } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeLikeService extends StoreService<RecipeLike> {
-  constructor(protected http: HttpService<RecipeLike>) {
+  constructor(protected http: HttpClient) {
     super(http, {
       url: environment.apiUrl + 'recipeLikes/',
       idField: 'id',

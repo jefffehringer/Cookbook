@@ -1,10 +1,10 @@
 import { environment } from '@cook/environment/environment';
 import { Injectable } from '@angular/core';
 import { StoreService } from '@cook/store/store.service';
-import { HttpService } from '@cook/store/http.service';
 import { Tag } from '@cook/models/tag.interface';
 import { catchError, finalize } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class TagService extends StoreService<Tag> {
   tagPicked$ = this.tagPickedSubject.asObservable();
 
   constructor(
-    protected http: HttpService<Tag>
+    protected http: HttpClient
   ) {
     super(
       http,
@@ -38,7 +38,7 @@ export class TagService extends StoreService<Tag> {
     this.loading = true;
 
     this.http
-      .getAll(`${this.settings.url}search/${text}`)
+      .get<Tag[]>(`${this.settings.url}search/${text}`)
       .pipe(
         catchError((e) => {
           this.getError = e;
