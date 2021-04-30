@@ -116,6 +116,7 @@ export abstract class StoreService<T> {
     }
 
     this.loading = true;
+    this.selected = null;
 
     this.http
       .get<T>(`${this.settings.url}${id}`)

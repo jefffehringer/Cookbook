@@ -102,6 +102,25 @@ export class RecipeService extends StoreService<Recipe> {
       });
   }
 
+  whatsForDinner() {
+    this.loading = true;
+    this.selected = null;
+
+    this.http
+      .get<Recipe>(`${this.settings.url}random`)
+      .pipe(
+        catchError((e) => {
+          this.getError = e;
+          return throwError(`Error loading ${this.settings.itemName}`);
+        }),
+        finalize(() => (this.loading = false))
+      )
+      .subscribe((d) => {
+        this.replaceOrAdd(d);
+        this.selected = d;
+      });
+  }
+
   generate(): Recipe {
     return {
       id: null,

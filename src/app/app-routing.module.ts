@@ -48,7 +48,11 @@ const routes: Routes = [
     path: 'profile-detail',
     loadChildren: () => import('./pages/profile/profile-detail/profile-detail.module').then( m => m.ProfileDetailPageModule),
     canActivate: [AuthenticatedGuard]
+  },  {
+    path: 'whats-for-dinner',
+    loadChildren: () => import('./whats-for-dinner/whats-for-dinner.module').then( m => m.WhatsForDinnerPageModule)
   }
+
 
 ];
 

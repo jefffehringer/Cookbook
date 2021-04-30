@@ -1,0 +1,100 @@
+<ion-header *ngIf="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>What's For Dinner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ng-template #spinner>
+    <ion-spinner></ion-spinner>
+  </ng-template>
+  <ion-grid fixed *ngIf="recipe$ | async as recipe;else spinner">
+    <ion-row>
+      <ion-col size="12">
+        <h3>{{recipe.name}}</h3>
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="https://picsum.photos/200?random=1987">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{recipe.userProfile.name}}</h2>
+          </ion-label>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-img src="https://picsum.photos/600/300"></ion-img>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-icon class="icon-less-margin" name="timer-outline" slot="start"></ion-icon>
+              <ion-label class="icon-less-margin">{{recipe.cooktime}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-icon class="icon-less-margin" name="pizza-outline" slot="start"></ion-icon>
+              <ion-label class="icon-less-margin">{{recipe.foodType}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-icon class="icon-less-margin" name="heart-outline" slot="start"></ion-icon>
+              <ion-label class="icon-less-margin">{{recipe.likeCount}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-button fill="clear">
+                <ion-icon slot="icon-only" [name]="recipe.liked ? 'heart' : 'heart-outline'"
+                  [color]="recipe.liked ? 'primary' : 'dark'"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-button fill="clear">
+                <ion-icon slot="icon-only" name="share-social-outline" color="dark"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <h4>Ingredients</h4>
+        <ul class="ol-ul-list">
+          <li *ngFor="let ing of recipe.ingredients">{{ing}}</li>
+        </ul>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <h4>Instructions</h4>
+        <ol class="ol-ul-list">
+          <li *ngFor="let step of recipe.instructions">{{step}}</li>
+        </ol>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button size="small" color="light" *ngFor="let tag of recipe.tags">{{tag.name}}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="recipe.notes?.length > 0">
+      <ion-col>
+        <h3>Notes</h3>
+        <p>{{recipe.notes}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
