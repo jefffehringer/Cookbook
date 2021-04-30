@@ -80,7 +80,7 @@ export class RecipeEditFormComponent implements OnInit {
   }
 
   private pushOrEmit(tag: Tag) {
-    if (this.recipe.id < 0) {
+    if (!this.recipe.id || this.recipe.id < 0) {
       this.recipe.tags.push(tag);
     } else {
       this.tagAdded.emit(tag);
