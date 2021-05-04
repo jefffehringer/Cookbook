@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { WhatsForDinnerPageRoutingModule } from './whats-for-dinner-routing.module';
 
 import { WhatsForDinnerPage } from './whats-for-dinner.page';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WhatsForDinnerPageRoutingModule
+    WhatsForDinnerPageRoutingModule,
+    SharedModule
   ],
   declarations: [WhatsForDinnerPage]
 })

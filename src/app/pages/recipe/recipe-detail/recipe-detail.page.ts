@@ -56,7 +56,6 @@ export class RecipeDetailPage implements OnInit {
   addComment() {
     // TODO Change how these are added (Even make the commenter a sub-component)
     this.commentService.addByRecipe(this.recipeId, this.newComment);
-    this.newComment = '';
   }
 
   like(alreadyLiked: boolean, recipeId: number) {

@@ -34,20 +34,15 @@
         </ion-col>
         <ion-col>
           <ion-item lines="full">
-            <ion-icon class="icon-less-margin" name="heart-outline" slot="start"></ion-icon>
+            <ion-button fill="clear" (click)="like()">
+              <ion-icon slot="icon-only" [name]="recipe.liked ? 'heart' : 'heart-outline'"
+                [color]="recipe.liked ? 'primary' : 'dark'"></ion-icon>
+            </ion-button>
             <ion-label class="icon-less-margin">{{recipe.likeCount}}</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
-          <ion-item lines="full">
-            <ion-button fill="clear" (click)="like()">
-              <ion-icon slot="icon-only" [name]="recipe.liked ? 'heart' : 'heart-outline'"
-                [color]="recipe.liked ? 'primary' : 'dark'"></ion-icon>
-            </ion-button>
-          </ion-item>
-        </ion-col>
         <ion-col>
           <ion-item lines="full">
             <ion-button fill="clear">

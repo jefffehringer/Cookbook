@@ -1,0 +1,18 @@
+<ion-header *ngIf="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>What's For Dinner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ng-template #spinner>
+    <ion-spinner></ion-spinner>
+  </ng-template>
+  <app-recipe-detail-viewer [recipe]="recipe$ | async" [canEdit]="canEdit$ | async" [comments]="comments$ | async">
+  </app-recipe-detail-viewer>
+</ion-content>
