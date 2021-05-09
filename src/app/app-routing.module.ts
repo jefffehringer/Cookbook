@@ -45,7 +45,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'profile-detail',
+    path: 'profile',
     loadChildren: () => import('./pages/profile/profile-detail/profile-detail.module').then( m => m.ProfileDetailPageModule),
     canActivate: [AuthenticatedGuard]
   },

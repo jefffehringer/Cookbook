@@ -1,0 +1,12 @@
+<form (ngSubmit)="submitForm()">
+  <ion-item>
+    <ion-label position="stacked">Name</ion-label>
+    <ion-input type="text" [(ngModel)]="profile.name" name="title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-textarea [(ngModel)]="profile.email" name="description"></ion-textarea>
+  </ion-item>
+  <ion-button size="small" (click)="back()" color="light">Cancel</ion-button>
+  <ion-button size="small" (click)="submitForm()">Save</ion-button>
+</form>

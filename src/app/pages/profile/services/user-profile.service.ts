@@ -13,7 +13,7 @@ export class UserProfileService extends StoreService<UserProfile> {
     super(http,
       {
       url: environment.apiUrl + 'userprofiles/',
-      idField: 'uid',
+      idField: 'userProfileId',
       itemName: 'User Profile',
     });
   }
