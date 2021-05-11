@@ -39,7 +39,8 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['/profile']" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="root" [routerLink]="['/profile', profile.userProfileId]" lines="none" detail="false"
+              routerLinkActive="selected">
               <ion-icon slot="start" name="person-outline"></ion-icon>
               <ion-label>Profile</ion-label>
             </ion-item>

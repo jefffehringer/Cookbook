@@ -133,7 +133,7 @@ export abstract class StoreService<T> {
       });
   }
 
-  add(val: T) {
+  add(val: Partial<T>) {
     this.loading = true;
 
     this.http

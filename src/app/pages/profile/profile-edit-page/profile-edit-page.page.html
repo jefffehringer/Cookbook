@@ -1,0 +1,10 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-profile-edit *ngIf="profile$ | async as profile" [profile]="profile" (saveProfile)="save($event)">
+  </app-profile-edit>
+</ion-content>

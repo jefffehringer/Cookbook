@@ -13,7 +13,7 @@ import { UserProfileService } from '../profile/services/user-profile.service';
 export class WhatsForDinnerPage implements OnInit {
   recipe$ = this.recipeService.selected$;
   comments$ = this.commentService.items$;
-   canEdit$ = combineLatest([this.recipe$, this.profileService.selected$]).pipe(
+   canEdit$ = combineLatest([this.recipe$, this.profileService.currentUser$]).pipe(
     filter(([recipe, user]) => recipe !== null && user !== null),
     map(
       ([recipe, user]) =>

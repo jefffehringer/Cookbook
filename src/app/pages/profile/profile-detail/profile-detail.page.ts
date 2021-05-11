@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { filter, map, tap } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 import { UserProfile } from '../models/user-profile.interface';
 import { UserProfileService } from '../services/user-profile.service';
 
@@ -9,20 +11,27 @@ import { UserProfileService } from '../services/user-profile.service';
   styleUrls: ['./profile-detail.page.scss'],
 })
 export class ProfileDetailPage implements OnInit {
-  profile$ = this.profileService.selected$.pipe(tap(console.log));
+  private profileId = '';
+  profile$ = this.profileService.selected$;
+
+  canEdit$ = combineLatest([this.profile$, this.profileService.currentUser$]).pipe(
+    filter(([profile, currentUser]) => profile !== null && currentUser !== null),
+    map(
+      ([profile, currentUser]) =>
+        profile.userProfileId === currentUser.userProfileId
+    )
+  );
 
   constructor(
-    private profileService: UserProfileService
+    private profileService: UserProfileService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.profileService.updateSuccess$.subscribe((prof) => {
-      this.profileService.select(prof);
-      // TODO: go back to the profile view page
-    });
   }
 
-  save(profile: UserProfile) {
-    this.profileService.update(profile);
+  ionViewDidEnter() {
+    this.profileId = this.route.snapshot.paramMap.get('id');
+    this.profileService.get(this.profileId);
   }
 }

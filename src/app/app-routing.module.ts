@@ -45,14 +45,19 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'profile',
+    path: 'profile/:id',
     loadChildren: () => import('./pages/profile/profile-detail/profile-detail.module').then( m => m.ProfileDetailPageModule),
     canActivate: [AuthenticatedGuard]
   },
   {
     path: 'whats-for-dinner',
     loadChildren: () => import('./pages/whats-for-dinner/whats-for-dinner.module').then( m => m.WhatsForDinnerPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile-edit-page/profile-edit-page.module').then( m => m.ProfileEditPagePageModule)
   }
+
 
 
 ];

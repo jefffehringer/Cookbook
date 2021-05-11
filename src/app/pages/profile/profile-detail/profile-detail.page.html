@@ -5,6 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <app-profile-edit *ngIf="profile$ | async as profile" [profile]="profile" (saveProfile)="save($event)">
-  </app-profile-edit>
+  <app-profile-viewer *ngIf="profile$ | async as profile" [profile]="profile" [canEdit]="canEdit$ | async">
+  </app-profile-viewer>
 </ion-content>

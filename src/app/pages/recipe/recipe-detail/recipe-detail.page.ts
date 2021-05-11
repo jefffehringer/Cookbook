@@ -22,7 +22,7 @@ export class RecipeDetailPage implements OnInit {
   loadingComments$ = this.commentService.loading$;
   comments$ = this.commentService.items$;
   haveRecipeValue = false;
-  canEdit$ = combineLatest([this.recipe$, this.profileService.selected$]).pipe(
+  canEdit$ = combineLatest([this.recipe$, this.profileService.currentUser$]).pipe(
     filter(([recipe, user]) => recipe !== null && user !== null),
     map(
       ([recipe, user]) =>

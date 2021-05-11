@@ -141,6 +141,8 @@ export class RecipeService extends StoreService<Recipe> {
         userProfileId: null,
         email: '',
         location: '',
+        followerCount: 0,
+        followingCount: 0,
       },
     };
   }

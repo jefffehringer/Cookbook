@@ -8,7 +8,7 @@ import { AuthService } from './services/security/auth.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  profile$ = this.profileService.selected$;
+  profile$ = this.profileService.currentUser$;
   showRightPane = false;
 
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];

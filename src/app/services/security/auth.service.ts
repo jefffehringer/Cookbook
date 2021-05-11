@@ -22,7 +22,7 @@ export class AuthService {
 
       this.user = u;
       this.setIdToken(this.user);
-      this.userProfileService.get(u.uid);
+      this.userProfileService.loadUser(u.uid);
     })
   );
 

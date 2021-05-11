@@ -8,6 +8,7 @@ import { ProfileDetailPageRoutingModule } from './profile-detail-routing.module'
 
 import { ProfileDetailPage } from './profile-detail.page';
 import { ProfileEditComponent } from '../profile-edit/profile-edit.component';
+import { ProfileViewerComponent } from '../profile-viewer/profile-viewer.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { ProfileEditComponent } from '../profile-edit/profile-edit.component';
     IonicModule,
     ProfileDetailPageRoutingModule
   ],
-  declarations: [ProfileDetailPage, ProfileEditComponent]
+  declarations: [ProfileDetailPage, ProfileEditComponent, ProfileViewerComponent]
 })
 export class ProfileDetailPageModule {}
