@@ -6,7 +6,8 @@
       </ion-avatar>
       <ion-label>
         <h1>{{recipe.name}}</h1>
-        <p>{{recipe.userProfile.name}}</p>
+        <a [routerLink]="['/profile', recipe.userProfile.userProfileId]" (click)="stop($event)"
+          class="profile-name">{{recipe.userProfile.name}}</a>
       </ion-label>
     </ion-item>
   </ion-card-header>

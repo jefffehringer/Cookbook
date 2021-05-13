@@ -32,6 +32,6 @@ export class ProfileDetailPage implements OnInit {
 
   ionViewDidEnter() {
     this.profileId = this.route.snapshot.paramMap.get('id');
-    this.profileService.get(this.profileId);
+    this.profileService.selectDetail(this.profileId);
   }
 }

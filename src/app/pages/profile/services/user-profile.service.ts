@@ -49,6 +49,30 @@ export class UserProfileService extends StoreService<UserProfile> {
     this.currentUser = val;
   }
 
+  selectDetail(id: string) {
+    if (id === null) {
+      this.selected = null;
+      return;
+    }
+
+    this.loading = true;
+    this.selected = null;
+
+    this.http
+      .get<UserProfile>(`${this.settings.url}${id}/detail`)
+      .pipe(
+        catchError((e) => {
+          this.getError = e;
+          return throwError(`Error getting ${this.settings.itemName}`);
+        }),
+        finalize(() => (this.loading = false))
+      )
+      .subscribe((d) => {
+        this.replaceOrAdd(d);
+        this.selected = d;
+      });
+  }
+
   loadUser(id: string | number) {
     if (id === null) {
       this.selected = null;

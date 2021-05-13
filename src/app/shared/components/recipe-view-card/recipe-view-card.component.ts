@@ -20,4 +20,9 @@ export class RecipeViewCardComponent implements OnInit {
     event.stopPropagation();
     return false;
   }
+
+  stop(event) {
+    event.stopPropagation();
+    return false;
+  }
 }

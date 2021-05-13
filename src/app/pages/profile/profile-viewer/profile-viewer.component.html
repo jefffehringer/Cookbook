@@ -1,5 +1,5 @@
 <ion-img class="w-100" src="https://picsum.photos/600/300"></ion-img>
-<ion-item>
+<ion-item lines="none">
   <h3>{{profile.name}}</h3>
   <ion-chip [routerLink]="['/profile']" slot="end" outline color="primary" *ngIf="canEdit else follow">
     <ion-label>Edit</ion-label>
@@ -9,4 +9,12 @@
       <ion-label>Follow</ion-label>
     </ion-chip>
   </ng-template>
+</ion-item>
+<ion-item lines="none">
+  <ion-label>
+    {{profile.followerCount}} Followers
+  </ion-label>
+  <ion-label>
+    {{profile.followingCount}} Following
+  </ion-label>
 </ion-item>
