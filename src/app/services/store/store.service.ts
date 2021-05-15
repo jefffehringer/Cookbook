@@ -70,7 +70,7 @@ export abstract class StoreService<T> {
   protected createSuccessSubject = new Subject<T>();
   createSuccess$ = this.createSuccessSubject.asObservable();
 
-  private noLoadResultsSubject = new Subject<void>();
+  protected noLoadResultsSubject = new Subject<void>();
   noLoadResults$ = this.noLoadResultsSubject.asObservable();
   //#endregion
 

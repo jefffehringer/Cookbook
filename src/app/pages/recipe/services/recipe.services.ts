@@ -121,6 +121,35 @@ export class RecipeService extends StoreService<Recipe> {
       });
   }
 
+  getByUserId(id: string, page = 0, pageSize = 0, append = false) {
+    this.loading = true;
+    let url = `${environment.apiUrl}userProfiles/${id}/recipes`;
+    url += this.buildUrl('', '', page, pageSize);
+
+    this.http
+      .get<Recipe[]>(url)
+      .pipe(
+        catchError((e) => {
+          this.loadError = e;
+          return throwError(`Error loading ${this.settings.itemName}s`);
+        }),
+        finalize(() => (this.loading = false))
+      )
+      .subscribe((d) => {
+        console.log({data: d, append, items: this.items});
+
+        if (append) {
+          this.items = this.items.concat(d);
+        } else {
+          this.items = d;
+        }
+
+        if (d.length === 0) {
+          this.noLoadResultsSubject.next();
+        }
+      });
+  }
+
   generate(): Recipe {
     return {
       id: null,
